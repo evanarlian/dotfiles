@@ -1,0 +1,95 @@
+{
+    // vscode ui
+    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
+    "window.titleBarStyle": "custom",
+    "window.dialogStyle": "custom",
+    "window.zoomLevel": -0.25,
+    "window.customMenuBarAltFocus": false,
+    "window.enableMenuBarMnemonics": false,
+    "workbench.panel.defaultLocation": "right",
+    "workbench.editor.wrapTabs": true,
+    "workbench.startupEditor": "none",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Gruvbox Dark Hard",
+    "explorer.compactFolders": false,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "material-icon-theme.hidesExplorerArrows": true,
+    "material-icon-theme.folders.color": "#fdd835",
+    "material-icon-theme.folders.theme": "classic",
+    "material-icon-theme.activeIconPack": "none",
+    "material-icon-theme.saturation": 0.8,
+    // text editor ui
+    "editor.fontFamily": "Cascadia Code PL, Recursive Mono Casual Static",
+    "editor.fontLigatures": false,
+    "editor.bracketPairColorization.enabled": false,
+    "editor.quickSuggestionsDelay": 0,
+    "editor.hover.delay": 200,
+    "editor.wordWrap": "on",
+    "terminal.integrated.fontFamily": "Cascadia Code PL",
+    "debug.console.acceptSuggestionOnEnter": "on",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "terminal.integrated.persistentSessionReviveProcess": "never",
+    "terminal.integrated.enablePersistentSessions": false,
+    // inlay
+    "workbench.colorCustomizations": {
+        "editorInlayHint.background": "#ffffff10",
+        "editorInlayHint.parameterBackground": "#ffffff10",
+        "editorInlayHint.typeBackground": "#ffffff10",
+        "editorInlayHint.foreground": "#d2bfa6",
+        "editorInlayHint.parameterForeground": "#d2bfa6",
+        "editorInlayHint.typeForeground": "#d2bfa6",
+    },
+    "editor.inlayHints.fontFamily": "Ubunto Mono",
+    "editor.inlayHints.padding": true,
+    "editor.inlayHints.fontSize": 12,
+    // saving and formatting
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 500,
+    // python
+    "python.defaultInterpreterPath": "/home/evan/miniconda3/envs/ml/bin/python",
+    "python.analysis.typeCheckingMode": "off",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnType": false,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        },
+        "editor.rulers": [
+            88
+        ],
+    },
+    "mojo.modularHomePath": "/home/evan/.modular",
+    // jupyter
+    "jupyter.askForKernelRestart": false,
+    "notebook.output.lineHeight": 1.25,
+    "notebook.output.textLineLimit": 100,
+    "notebook.output.wordWrap": true,
+    // cpp
+    "C_Cpp.intelliSenseUpdateDelay": 500,
+    "C_Cpp.codeAnalysis.updateDelay": 0,
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, TabWidth: 4, AccessModifierOffset: -4, AllowShortBlocksOnASingleLine: Empty, AllowShortFunctionsOnASingleLine: Empty }",
+    "cmake.configureSettings": {
+        "CMAKE_TOOLCHAIN_FILE": "/home/evan/Documents/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    },
+    // rust
+    "rust-analyzer.check.command": "clippy",
+    // kotlin
+    "kotlin.languageServer.enabled": false,
+    "kotlin.debugAdapter.enabled": false,
+    // git and gitlens
+    "git.confirmSync": false,
+    "git.suggestSmartCommit": false,
+    "gitlens.mode.active": "zen",
+    // misc
+    "remote.SSH.connectTimeout": 60,
+    "debug.onTaskErrors": "showErrors",
+    "files.exclude": {
+        "**/__pycache__": true
+    },
+    "hexeditor.columnWidth": 16,
+    "hexeditor.showDecodedText": true,
+    "hexeditor.defaultEndianness": "little",
+    "hexeditor.inspectorType": "aside",
+}
