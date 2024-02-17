@@ -88,8 +88,6 @@
     "files.exclude": {
         "**/__pycache__": true
     },
-    "hexeditor.columnWidth": 16,
-    "hexeditor.showDecodedText": true,
     "hexeditor.defaultEndianness": "little",
-    "hexeditor.inspectorType": "aside",
+    "git.openRepositoryInParentFolders": "never",
 }
