@@ -15,3 +15,5 @@ bind \e\[3\;5~ kill-word  # enable ctrl delete
 source $__fish_config_dir/abbr.fish
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/evan/google-cloud-sdk/path.fish.inc' ]; . '/home/evan/google-cloud-sdk/path.fish.inc'; end
+
+starship init fish | source

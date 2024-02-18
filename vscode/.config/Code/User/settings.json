@@ -20,7 +20,7 @@
     "material-icon-theme.activeIconPack": "none",
     "material-icon-theme.saturation": 0.8,
     // text editor ui
-    "editor.fontFamily": "Cascadia Code PL, Recursive Mono Casual Static",
+    "editor.fontFamily": "CaskaydiaCove Nerd Font",
     "editor.fontLigatures": false,
     "editor.bracketPairColorization.enabled": false,
     "editor.quickSuggestionsDelay": 0,
