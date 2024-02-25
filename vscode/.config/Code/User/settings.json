@@ -26,11 +26,11 @@
     "editor.quickSuggestionsDelay": 0,
     "editor.hover.delay": 200,
     "editor.wordWrap": "on",
-    "terminal.integrated.fontFamily": "Cascadia Code PL",
-    "debug.console.acceptSuggestionOnEnter": "on",
-    "diffEditor.ignoreTrimWhitespace": false,
+    "terminal.integrated.fontFamily": "CaskaydiaCove Nerd Font",
     "terminal.integrated.persistentSessionReviveProcess": "never",
     "terminal.integrated.enablePersistentSessions": false,
+    "debug.console.acceptSuggestionOnEnter": "on",
+    "diffEditor.ignoreTrimWhitespace": false,
     // inlay
     "workbench.colorCustomizations": {
         "editorInlayHint.background": "#ffffff10",
