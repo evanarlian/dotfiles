@@ -1,1 +1,58 @@
-format = '$all'
+# format = '$all'
+format = '$username$hostname$directory$cmd_duration$character'
+right_format = '$conda$python$nodejs([•](white) $git_branch$git_state$git_status)'
+add_newline = false
+
+
+# LEFT PROMPT
+
+[username]
+show_always = false
+style_user = 'red'
+format = '[$user]($style)'
+
+[hostname]
+ssh_only = true
+style = 'yellow'
+format = '[@](white)[$hostname]($style) '
+
+[directory]
+fish_style_pwd_dir_length = 3
+truncation_length = 1
+format = '[$path]($style)[$read_only]($read_only_style) '
+
+[cmd_duration]
+style = 'yellow bold italic'
+format = '[[•](yellow) $duration]($style) '
+
+[character]
+format = '$symbol '
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+
+
+# RIGHT PROMPT (keep git stuff as default)
+
+[conda]
+ignore_base = false
+symbol = '🅒 '
+format = '([•](white) [$symbol\($environment\)]($style) )'
+
+[python]
+symbol = '🐍'
+format = '([•](white) [($symbol\($virtualenv\))]($style) )'
+
+# TODO nodejs is present but i want nvm
+
+
+# disable all cloud prompt for now
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[openstack]
+disabled = true
