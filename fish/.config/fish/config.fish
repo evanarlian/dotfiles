@@ -5,15 +5,17 @@ end
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-eval /home/evan/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+eval /home/evan/miniconda3/bin/conda "shell.fish" hook $argv | source
 # <<< conda initialize <<<
 
 # Keybinding
-bind \b backward-kill-word  # enable ctrl backspace
-bind \e\[3\;5~ kill-word  # enable ctrl delete
+bind \b backward-kill-word # enable ctrl backspace
+bind \e\[3\;5~ kill-word # enable ctrl delete
 
 source $__fish_config_dir/abbr.fish
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/evan/google-cloud-sdk/path.fish.inc' ]; . '/home/evan/google-cloud-sdk/path.fish.inc'; end
+if [ -f '/home/evan/google-cloud-sdk/path.fish.inc' ]
+    . '/home/evan/google-cloud-sdk/path.fish.inc'
+end
 
 starship init fish | source
