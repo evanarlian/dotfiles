@@ -43,8 +43,6 @@ format = '([•](white) [$symbol\($environment\)]($style) )'
 symbol = '🐍'
 format = '([•](white) [($symbol\($virtualenv\))]($style) )'
 
-# TODO nodejs is present but i want nvm
-
 
 # disable all cloud prompt for now
 
