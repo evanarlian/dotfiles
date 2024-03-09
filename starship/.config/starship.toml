@@ -1,6 +1,6 @@
 # format = '$all'
 format = '$username$hostname$directory$cmd_duration$character'
-right_format = '$conda$python$nodejs([•](white) $git_branch$git_state$git_status)'
+right_format = '$conda$python([•](white) $git_branch$git_state$git_status)'
 add_newline = false
 
 
