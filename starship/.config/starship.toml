@@ -43,6 +43,8 @@ format = '([•](white) [$symbol\($environment\)]($style) )'
 symbol = '🐍'
 format = '([•](white) [($symbol\($virtualenv\))]($style) )'
 
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style))' # remove end space from default
 
 # disable all cloud prompt for now
 
