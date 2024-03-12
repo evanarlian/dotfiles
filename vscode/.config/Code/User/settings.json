@@ -49,9 +49,9 @@
     "files.autoSaveDelay": 500,
     // python
     "python.defaultInterpreterPath": "/home/evan/miniconda3/envs/ml/bin/python",
-    "python.analysis.typeCheckingMode": "off",
+    "python.analysis.typeCheckingMode": "basic",
     "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.formatOnType": false,
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"
@@ -60,6 +60,7 @@
             88
         ],
     },
+    // mojo
     "mojo.modularHomePath": "/home/evan/.modular",
     // jupyter
     "jupyter.askForKernelRestart": false,
@@ -75,9 +76,6 @@
     },
     // rust
     "rust-analyzer.check.command": "clippy",
-    // kotlin
-    "kotlin.languageServer.enabled": false,
-    "kotlin.debugAdapter.enabled": false,
     // git and gitlens
     "git.confirmSync": false,
     "git.suggestSmartCommit": false,
