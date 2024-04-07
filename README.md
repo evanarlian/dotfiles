@@ -1,5 +1,5 @@
 # Quickstart
-Run and wait.
+Run and wait. Only tested on **Ubuntu 22.04**.
 ```bash
 git clone https://github.com/evanarlian/dotfiles.git && cd dotfiles && sudo apt update && ./install.sh
 ```
@@ -15,7 +15,7 @@ Using `stow` to put symlinks to another places. `--adopt` can be used to resolve
 stow bash  
 stow --adopt bash
 ```
-There is sanity check to confirm everything installed by `install.sh` are working properly. Run this after terminal restarts (to allow PATHs, etc to be fully added).
+There is sanity check to confirm everything installed by `install.sh` are working properly. Run this **after** terminal restarts (to allow PATHs, etc to be fully added).
 ```bash
 ./sanity_check.sh
 ```
