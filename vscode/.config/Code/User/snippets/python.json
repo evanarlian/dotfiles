@@ -42,6 +42,17 @@
 			"",
 		],
 	},
+	"async main script guard": {
+		"prefix": "!amain",
+		"body": [
+			"async def main():",
+			"    ${0:pass}",
+			"",
+			"if __name__ == \"__main__\":",
+			"    asyncio.run(main())",
+			"",
+		],
+	},
 	"jupyter autoreload": {
 		"prefix": "!autoreload",
 		"body": [
