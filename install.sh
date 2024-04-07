@@ -9,7 +9,12 @@ install_essentials() {
 }
 
 install_fish() {
+    # install newest version of fish directly from ppa
+    sudo apt-add-repository ppa:fish-shell/release-3 -y
+    sudo apt update
     sudo apt install fish -y
+    fish -c 'set -U fish_greeting'
+    # fisher and fish plugins
     fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher'
     fish_plugins=(
         jorgebucaran/fisher
