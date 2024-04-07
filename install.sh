@@ -3,8 +3,7 @@
 install_essentials() {
     sudo apt install -y \
         git stow wget curl \
-        fzf jq tree \
-        grep sed awk \
+        grep fzf jq tree \
         micro htop tmux \
         build-essential
 }
@@ -41,18 +40,25 @@ install_rust() {
     ~/.cargo/bin/cargo binstall -y \
         bat fd-find just ripgrep \
         starship
-    # cargo add to paths will be done after stow 
 }
 
-# stow_all() {
-#     stow 
-# }
+stow_all() {
+    # --adopt means taking existing file and overwriting files here (dotfiles repo)
+    # --adopt followed by 'git restore .' is like saying: delete and use dotfiles only
+    apps=(bash conda fish git rust starship tmux vscode)
+    for app in "${apps[@]}"; do
+        stow --adopt "$app"
+    done
+    git restore .
+}
 
-# clean_up() {
-#     # adding to paths for bash and fish
-# }
+clean_up() {
+    ~/miniconda3/bin/conda init bash fish
+}
 
 install_essentials
 install_fish
 install_miniconda
 install_rust
+stow_all
+clean_up
