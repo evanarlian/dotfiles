@@ -5,7 +5,6 @@ end
 
 source $__fish_config_dir/abbr.fish
 source "$HOME/.cargo/env.fish"
-starship init fish | source
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -20,3 +19,6 @@ bind \e\[3\;5~ kill-word # enable ctrl delete
 if [ -f '/home/evan/google-cloud-sdk/path.fish.inc' ]
     . '/home/evan/google-cloud-sdk/path.fish.inc'
 end
+
+# starship must be at the very bottom to shadow all prompt modifier
+starship init fish | source
