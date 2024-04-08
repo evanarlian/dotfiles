@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 install_essentials() {
     sudo apt install -y \
         git stow wget curl \

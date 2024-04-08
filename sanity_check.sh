@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 SESS="_sanity_check"
 
 function test_essentials() {
