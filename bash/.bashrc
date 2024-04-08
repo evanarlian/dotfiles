@@ -131,4 +131,13 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+ca() {
+    if [[ $1 == "" ]]; then
+        conda deactivate
+    else
+        conda activate $1
+    fi
+}
+export -f ca
+
 . "$HOME/.cargo/env"

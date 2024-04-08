@@ -25,8 +25,13 @@ function test_fish() {
 function test_miniconda() {
     WIN="conda"
     tmux new-window -t $SESS -n $WIN
-    tmux send -t $SESS:$WIN "conda activate base" enter
-    tmux send -t $SESS:$WIN "conda env list" enter
+    tmux splitp -v -t $SESS:$WIN.1
+    tmux send -t $SESS:$WIN.1 "bash" enter
+    tmux send -t $SESS:$WIN.1 "ca base" enter
+    tmux send -t $SESS:$WIN.1 "conda env list" enter
+    tmux send -t $SESS:$WIN.2 "fish" enter
+    tmux send -t $SESS:$WIN.2 "ca base" enter
+    tmux send -t $SESS:$WIN.2 "conda env list" enter
 }
 
 function test_rust() {
@@ -38,6 +43,12 @@ function test_rust() {
     tmux send -t $SESS:$WIN "just -V" enter
     tmux send -t $SESS:$WIN "rg stow" enter
 }
+
+
+if tmux has-session -t $SESS 2>/dev/null; then
+    echo "tmux session $SESS exists, kill first to run sanity check again."
+    exit
+fi
 
 tmux new -d -s $SESS
 test_essentials
