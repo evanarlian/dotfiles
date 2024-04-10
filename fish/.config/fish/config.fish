@@ -20,5 +20,5 @@ if [ -f '/home/evan/google-cloud-sdk/path.fish.inc' ]
     . '/home/evan/google-cloud-sdk/path.fish.inc'
 end
 
-# starship must be at the very bottom to shadow all prompt modifier
+# starship must be at the very bottom to shadow all prompt modifiers
 starship init fish | source
