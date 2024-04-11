@@ -5,9 +5,15 @@ set -eu
 install_essentials() {
     sudo apt install -y \
         git stow wget curl \
-        grep fzf jq tree \
+        grep jq tree \
         micro htop tmux \
         build-essential
+    # install fzf from release page because apt is outdated
+    FZF_VER="fzf-0.49.0-linux_amd64.tar.gz"
+    wget https://github.com/junegunn/fzf/releases/download/0.49.0/$FZF_VER
+    mkdir -p $HOME/.local/bin/
+    tar -xf $FZF_VER --directory=$HOME/.local/bin/
+    rm $FZF_VER
 }
 
 install_fish() {
@@ -15,7 +21,6 @@ install_fish() {
     sudo apt-add-repository ppa:fish-shell/release-3 -y
     sudo apt update
     sudo apt install fish -y
-    fish -c 'set -U fish_greeting'
     # fisher and fish plugins
     fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher'
     fish_plugins=(
@@ -60,6 +65,8 @@ stow_all() {
 }
 
 clean_up() {
+    fish -c 'set -U fish_greeting'
+    fish -c 'fish_add_path -m ~/.local/bin/'
     ~/miniconda3/bin/conda init bash fish
 }
 
