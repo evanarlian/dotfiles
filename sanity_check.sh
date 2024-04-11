@@ -22,6 +22,7 @@ function test_fish() {
     tmux new-window -t $SESS -n $WIN
     tmux send -t $SESS:$WIN "fish" enter
     tmux send -t $SESS:$WIN "fisher list" enter
+    tmux send -t $SESS:$WIN "_fzf_search_history" enter
 }
 
 function test_miniconda() {
