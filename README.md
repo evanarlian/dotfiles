@@ -27,4 +27,3 @@ tmux kill-session -t _sanity_check  # after done looking
 # Guidelines
 * Periodically watch for new files in a directory (for example a new vscode snippets), because they are not tracked yet.
 * fzf version is still hardcoded from github releases.
-# fzf history fish plugin
