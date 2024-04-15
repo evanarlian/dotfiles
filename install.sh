@@ -67,6 +67,7 @@ stow_all() {
 clean_up() {
     fish -c 'set -U fish_greeting'
     fish -c 'fish_add_path -m ~/.local/bin/'
+    fish -c 'fish_config theme choose "Base16 Eighties"' 
     ~/miniconda3/bin/conda init bash fish
 }
 
