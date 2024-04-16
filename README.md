@@ -1,5 +1,5 @@
 # Quickstart
-Run and wait. Only tested on **Ubuntu 22.04**.
+Run and wait. Only tested on Ubuntu 22.04. **Warning:** will overwrite without confirmation.
 ```bash
 git clone https://github.com/evanarlian/dotfiles.git && cd dotfiles && sudo apt update && ./install.sh
 ```
