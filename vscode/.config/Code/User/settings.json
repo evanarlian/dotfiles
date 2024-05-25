@@ -32,6 +32,7 @@
     "debug.console.acceptSuggestionOnEnter": "on",
     "diffEditor.ignoreTrimWhitespace": false,
     // inlay
+    "editor.inlayHints.enabled": "offUnlessPressed",
     "workbench.colorCustomizations": {
         "editorInlayHint.background": "#ffffff10",
         "editorInlayHint.parameterBackground": "#ffffff10",
@@ -49,7 +50,7 @@
     "files.autoSaveDelay": 500,
     // python
     "python.defaultInterpreterPath": "/home/evan/miniconda3/envs/ml/bin/python",
-    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.typeCheckingMode": "standard",
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.formatOnType": false,
@@ -88,4 +89,9 @@
     },
     "hexeditor.defaultEndianness": "little",
     "git.openRepositoryInParentFolders": "never",
+    "errorLens.enabledDiagnosticLevels": [
+        "warning",
+        "info",
+        "error"
+    ],
 }
