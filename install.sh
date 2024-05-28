@@ -71,9 +71,16 @@ clean_up() {
     ~/miniconda3/bin/conda init bash fish
 }
 
+python_shortcut() {
+    if [ -e /usr/bin/python3 ] && [ ! -e /usr/bin/python ]; then
+        sudo ln -s /usr/bin/python3 /usr/bin/python
+    fi
+}
+
 install_essentials
 install_fish
 install_miniconda
 install_rust
 stow_all
 clean_up
+python_shortcut
