@@ -40,7 +40,9 @@ install_miniconda() {
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
     bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
     rm -rf ~/miniconda3/miniconda.sh
-    # conda init is done later after stow to ensure correct user name (for path)
+    # conda init is not really needed right now because we have user agnostic init commands in bash and fish
+    # below changes will be replaced by stow anyway
+    ~/miniconda3/bin/conda init bash fish
 }
 
 install_rust() {
@@ -56,7 +58,7 @@ install_rust() {
 
 stow_all() {
     # for vscode, we create the fake folder first to prevent stow to create symlink from so far above
-     mkdir -p ~/.config/Code/User/
+    mkdir -p ~/.config/Code/User/
     # --adopt means taking existing file and overwriting files here (dotfiles repo)
     # --adopt followed by 'git restore .' is like saying: delete and use dotfiles only
     apps=(bash conda fish git rust starship tmux vscode)
@@ -66,11 +68,10 @@ stow_all() {
     git restore .
 }
 
-clean_up() {
+fish_clean_up() {
     fish -c 'set -U fish_greeting'
     fish -c 'fish_add_path -m ~/.local/bin/'
     fish -c 'fish_config theme choose "Base16 Eighties" && yes | fish_config theme save'
-    ~/miniconda3/bin/conda init bash fish
 }
 
 python_shortcut() {
@@ -100,7 +101,9 @@ install_fish
 install_miniconda
 install_rust
 stow_all
-clean_up
+fish_clean_up
 python_shortcut
 fix_nvidia_sleep
 install_cascadia_code_nerdfont
+
+echo "💫🍰🌸 Bootstrap finished!"
