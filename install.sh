@@ -77,6 +77,11 @@ python_shortcut() {
     fi
 }
 
+fix_nvidia_sleep() {
+    sudo bash -c 'echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" > /etc/modprobe.d/nvidia-suspend.conf'
+    sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service
+}
+
 install_essentials
 install_fish
 install_miniconda
@@ -84,3 +89,4 @@ install_rust
 stow_all
 clean_up
 python_shortcut
+fix_nvidia_sleep
