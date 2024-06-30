@@ -55,6 +55,8 @@ install_rust() {
 }
 
 stow_all() {
+    # for vscode, we create the fake folder first to prevent stow to create symlink from so far above
+     mkdir -p ~/.config/Code/User/
     # --adopt means taking existing file and overwriting files here (dotfiles repo)
     # --adopt followed by 'git restore .' is like saying: delete and use dotfiles only
     apps=(bash conda fish git rust starship tmux vscode)
