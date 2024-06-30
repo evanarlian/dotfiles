@@ -52,8 +52,9 @@ install_rust() {
     curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
     # useful rust binaries
     ~/.cargo/bin/cargo binstall -y \
-        bat fd-find just ripgrep \
+        bat fd-find just ripgrep tealdeer \
         starship
+    tldr --update
 }
 
 stow_all() {
