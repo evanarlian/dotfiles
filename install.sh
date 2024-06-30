@@ -82,6 +82,17 @@ fix_nvidia_sleep() {
     sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service
 }
 
+install_cascadia_code_nerdfont() {
+    mkdir -p /tmp/font
+    cd /tmp/font
+    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/CascadiaCode.zip
+    unzip CascadiaCode.zip
+    sudo mkdir -p /usr/share/fonts/truetype/caskaydia
+    sudo mv CaskaydiaCoveNerdFont* /usr/share/fonts/truetype/caskaydia
+    cd -
+    sudo rm -rf /tmp/font
+}
+
 install_essentials
 install_fish
 install_miniconda
@@ -90,3 +101,4 @@ stow_all
 clean_up
 python_shortcut
 fix_nvidia_sleep
+install_cascadia_code_nerdfont
