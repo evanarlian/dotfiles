@@ -24,6 +24,9 @@ This sanity check uses tmux under the hood. You can inspect the result by runnin
 tmux a -t _sanity_check
 tmux kill-session -t _sanity_check  # after done looking
 ```
+
 # Guidelines
-* Periodically watch for new files in a directory (for example a new vscode snippets), because they are not tracked yet.
-* fzf version is still hardcoded from github releases.
+* Some versions are hardcoded (locked to the same version):
+    * fzf
+    * CaskaydiaCode font
+* After changing shell, tmux might still use the old default. Restart solves this.
