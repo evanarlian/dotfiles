@@ -3,11 +3,14 @@
 set -eu
 
 install_essentials() {
+    # setup git lfs repository
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
     sudo apt install -y \
-        git stow wget curl \
+        git git-lfs stow wget curl \
         grep jq tree \
         micro htop tmux \
         build-essential
+    git lfs install
     # install fzf from release page because apt is outdated
     FZF_VER="fzf-0.49.0-linux_amd64.tar.gz"
     wget https://github.com/junegunn/fzf/releases/download/0.49.0/$FZF_VER
