@@ -86,7 +86,11 @@ python_shortcut() {
 
 fix_nvidia_sleep() {
     sudo bash -c 'echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" > /etc/modprobe.d/nvidia-suspend.conf'
-    sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service
+    for service in nvidia-suspend nvidia-hibernate nvidia-resume; do
+        if systemctl list-unit-files | grep -q "$service"; then
+            sudo systemctl enable "$service"
+        fi
+    done
 }
 
 install_cascadia_code_nerdfont() {
