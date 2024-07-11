@@ -86,4 +86,12 @@
 			"args = parser.parse_args()$0",
 		],
 	},
+	"time elapsed": {
+		"prefix": "!elapsed",
+		"body": [
+			"t0 = time.perf_counter()",
+			"$0",
+			"elapsed = time.perf_counter() - t0",
+		],
+	},
 }
