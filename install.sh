@@ -104,6 +104,21 @@ install_cascadia_code_nerdfont() {
     sudo rm -rf /tmp/font
 }
 
+append_cuda_ld_libraries() {
+    # I don't want to use LD_LIBRARY_PATH because the behavior is prepend, can mess with preinstalled libraries
+    # write to temp file first to capture the script executor's name
+    tempfile=$(mktemp)
+    cat << EOF > $tempfile
+/home/$USER/miniconda3/envs/cuda11/lib
+/home/$USER/miniconda3/envs/cuda12/lib
+/home/$USER/miniconda3/envs/cudnn8/lib
+/home/$USER/miniconda3/envs/cudnn9/lib
+EOF
+    sudo mv $tempfile /etc/ld.so.conf.d/zzz_conda_cuda_ld_lib.conf
+    sudo ldconfig  # rebuild dynamic linker cache
+}
+
+
 install_essentials
 install_fish
 install_miniconda
@@ -113,5 +128,6 @@ fish_clean_up
 python_shortcut
 fix_nvidia_sleep
 install_cascadia_code_nerdfont
+append_cuda_ld_libraries
 
 echo "💫🍰🌸 Bootstrap finished!"
