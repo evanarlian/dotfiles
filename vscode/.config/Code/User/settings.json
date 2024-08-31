@@ -31,6 +31,7 @@
     "terminal.integrated.enablePersistentSessions": false,
     "debug.console.acceptSuggestionOnEnter": "on",
     "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.codeLens": true,
     // inlay
     "editor.inlayHints.enabled": "offUnlessPressed",
     "workbench.colorCustomizations": {
@@ -96,4 +97,5 @@
         "info",
         "error"
     ],
+    "continue.enableTabAutocomplete": false,
 }
