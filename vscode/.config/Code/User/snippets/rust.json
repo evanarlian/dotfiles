@@ -33,5 +33,14 @@
 			"#[derive($0)]"
 		],
 		"description": "Create derive"
+	},
+	"Indoc": {
+		"prefix": "!indoc",
+		"body": [
+			"indoc! {\"",
+			"\t$0",
+			"\"};",
+		],
+		"description": "Indented document"
 	}
 }
