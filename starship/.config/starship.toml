@@ -26,6 +26,9 @@ style = 'yellow bold italic'
 format = '[[•](yellow) $duration]($style) '
 
 [character]
+# success_symbol = "[ඞ](bold green)"
+# error_symbol = "[ඞ](bold red)"
+# format = '$symbol  '
 format = '$symbol '
 
 [git_branch]
