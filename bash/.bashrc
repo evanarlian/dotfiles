@@ -141,3 +141,11 @@ ca() {
 export -f ca
 
 . "$HOME/.cargo/env"
+
+export PATH=/usr/local/cuda-12.5/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.5/targets/x86_64-linux/lib:/usr/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN

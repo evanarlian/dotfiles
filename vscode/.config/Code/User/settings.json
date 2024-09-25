@@ -3,7 +3,7 @@
     "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
     "window.titleBarStyle": "custom",
     "window.dialogStyle": "custom",
-    "window.zoomLevel": -0.25,
+    // "window.zoomLevel": -0.25,
     "window.customMenuBarAltFocus": false,
     "window.enableMenuBarMnemonics": false,
     "workbench.panel.defaultLocation": "right",
