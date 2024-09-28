@@ -42,5 +42,12 @@
 			"\"};",
 		],
 		"description": "Indented document"
-	}
+	},
+	"Rustfmt skip": {
+		"prefix": "#rskip",
+		"body": [
+			"#[rustfmt::skip]",
+		],
+		"description": "Rustfmt skip block"
+	},
 }
