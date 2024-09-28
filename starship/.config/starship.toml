@@ -40,19 +40,19 @@ format = '[$symbol$branch(:$remote_branch)]($style) '
 [nodejs]
 symbol = " "
 style = 'yellow bold'
-format = '([•](white) [($symbol\($version\))]($style) )'
+format = '([•](white) [($symbol$version)]($style) )'
 disabled = false
 
 [conda]
 ignore_base = false
 symbol = '🅒 '
-format = '([•](white) [$symbol\($environment\)]($style) )'
+format = '([•](white) [$symbol$environment]($style) )'
 disabled = false
 
 [python]
 symbol = '󰌠 '
 style = "blue bold"
-format = '([•](white) [($symbol\($virtualenv\))]($style) )'
+format = '([•](white) [($symbol$virtualenv)]($style) )'
 disabled = false
 
 [git_status]
