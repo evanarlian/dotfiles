@@ -50,7 +50,8 @@ format = '([•](white) [$symbol\($environment\)]($style) )'
 disabled = false
 
 [python]
-symbol = '🐍'
+symbol = '󰌠 '
+style = "blue bold"
 format = '([•](white) [($symbol\($virtualenv\))]($style) )'
 disabled = false
 
