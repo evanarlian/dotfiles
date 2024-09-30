@@ -1,6 +1,6 @@
 # format = '$all'
 format = '$username$hostname$directory$cmd_duration$character'
-right_format = '$conda$python([•](white) $git_branch$git_state$git_status)'
+right_format = '$nodejs$conda$python([•](white) $git_branch$git_state$git_status)'
 add_newline = false
 
 
@@ -37,17 +37,27 @@ format = '[$symbol$branch(:$remote_branch)]($style) '
 
 # RIGHT PROMPT (keep git stuff as default)
 
+[nodejs]
+symbol = " "
+style = 'yellow bold'
+format = '([•](white) [($symbol$version)]($style) )'
+disabled = false
+
 [conda]
 ignore_base = false
 symbol = '🅒 '
-format = '([•](white) [$symbol\($environment\)]($style) )'
+format = '([•](white) [$symbol$environment]($style) )'
+disabled = false
 
 [python]
-symbol = '🐍'
-format = '([•](white) [($symbol\($virtualenv\))]($style) )'
+symbol = '󰌠 '
+style = "blue bold"
+format = '([•](white) [($symbol$virtualenv)]($style) )'
+disabled = false
 
 [git_status]
 format = '([\[$all_status$ahead_behind\]]($style))' # remove end space from default
+
 
 # disable all cloud prompt for now
 

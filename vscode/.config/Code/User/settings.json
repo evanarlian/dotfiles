@@ -25,6 +25,7 @@
     "editor.bracketPairColorization.enabled": false,
     "editor.quickSuggestionsDelay": 0,
     "editor.hover.delay": 200,
+    "editor.letterSpacing": -0.2,
     "editor.wordWrap": "on",
     "terminal.integrated.fontFamily": "CaskaydiaCove Nerd Font",
     "terminal.integrated.persistentSessionReviveProcess": "never",
@@ -51,7 +52,7 @@
     "files.autoSaveDelay": 500,
     // python
     "python.envFile": "",
-    "python.defaultInterpreterPath": "/home/evan/miniconda3/envs/ml/bin/python",
+    "python.defaultInterpreterPath": "/home/evan/miniconda3/envs/asrgoogle/bin/python",
     "python.analysis.typeCheckingMode": "standard",
     "python.analysis.autoImportCompletions": true,
     "[python]": {
