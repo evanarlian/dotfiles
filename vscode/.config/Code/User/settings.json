@@ -52,7 +52,7 @@
     "files.autoSaveDelay": 500,
     // python
     "python.envFile": "",
-    "python.defaultInterpreterPath": "/home/evan/miniconda3/envs/asrgoogle/bin/python",
+    "python.defaultInterpreterPath": "/home/evan/miniconda3/envs/ml/bin/python",
     "python.analysis.typeCheckingMode": "standard",
     "python.analysis.autoImportCompletions": true,
     "[python]": {
