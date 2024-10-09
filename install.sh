@@ -32,6 +32,7 @@ install_fish() {
         jorgebucaran/nvm.fish
         evanarlian/google-cloud-sdk-fish-completion
         jethrokuan/z
+        evanarlian/python-module-fish-completion
     )
     for plugin in "${fish_plugins[@]}"; do
         fish -c "fisher install $plugin"
