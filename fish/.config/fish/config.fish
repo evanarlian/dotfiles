@@ -30,3 +30,5 @@ end
 
 # starship must be at the very bottom to shadow all prompt modifiers
 starship init fish | source
+uv generate-shell-completion fish | source
+uvx --generate-shell-completion fish | source
