@@ -98,5 +98,10 @@
         "info",
         "error"
     ],
-    "continue.enableTabAutocomplete": false,
+    "todo-tree.highlights.defaultHighlight": {
+        "type": "tag",
+        "fontStyle": "italic",
+        "foreground": "#FF0000",
+        "iconColour": "#088044"
+    },
 }
