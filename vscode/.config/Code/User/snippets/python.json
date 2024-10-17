@@ -94,4 +94,11 @@
 			"elapsed = time.perf_counter() - t0",
 		],
 	},
+	"pandas long columns": {
+		"prefix": "!pdcolwidth",
+		"body": [
+			"with pd.option_context(\"display.max_colwidth\", None):",
+			"    display($0)",
+		],
+	},
 }

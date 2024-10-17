@@ -85,6 +85,10 @@ python_shortcut() {
     fi
 }
 
+install_python_tooling() {
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+}
+
 fix_nvidia_sleep() {
     sudo bash -c 'echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" > /etc/modprobe.d/nvidia-suspend.conf'
     for service in nvidia-suspend nvidia-hibernate nvidia-resume; do
@@ -127,6 +131,7 @@ install_rust
 stow_all
 fish_clean_up
 python_shortcut
+install_python_tooling
 fix_nvidia_sleep
 install_cascadia_code_nerdfont
 append_cuda_ld_libraries
