@@ -47,6 +47,11 @@ function test_rust() {
     tmux send -t $SESS:$WIN "rg stow" enter
 }
 
+function test_python_tooling() {
+    WIN="py_tools"
+    tmux new-window -t $SESS -n $WIN
+    tmux send -t $SESS:$WIN "uv" enter
+}
 
 if tmux has-session -t $SESS 2>/dev/null; then
     echo "tmux session $SESS exists, kill first to run sanity check again."
@@ -58,5 +63,6 @@ test_essentials
 test_fish
 test_miniconda
 test_rust
+test_python_tooling
 tmux kill-window -t $SESS:1  # remove first window created implicitly by tmux new
 tmux select-window -t $SESS:1  # go to first window for aesthetics
