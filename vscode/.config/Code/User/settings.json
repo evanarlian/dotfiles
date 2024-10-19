@@ -104,4 +104,5 @@
         "foreground": "#FF0000",
         "iconColour": "#088044"
     },
+    "todo-tree.highlights.highlightDelay": 50,
 }
