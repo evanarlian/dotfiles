@@ -98,13 +98,13 @@ fix_nvidia_sleep() {
     done
 }
 
-install_cascadia_code_nerdfont() {
+install_cascadia_mono_nerdfont() {
     mkdir -p /tmp/font
     cd /tmp/font
-    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/CascadiaCode.zip
-    unzip CascadiaCode.zip
+    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/CascadiaMono.zip
+    unzip CascadiaMono.zip
     sudo mkdir -p /usr/share/fonts/truetype/caskaydia
-    sudo mv CaskaydiaCoveNerdFont* /usr/share/fonts/truetype/caskaydia
+    sudo mv CaskaydiaMonoNerdFont* /usr/share/fonts/truetype/caskaydia
     cd -
     sudo rm -rf /tmp/font
 }
@@ -133,7 +133,7 @@ fish_clean_up
 python_shortcut
 install_python_tooling
 fix_nvidia_sleep
-install_cascadia_code_nerdfont
+install_cascadia_mono_nerdfont
 append_cuda_ld_libraries
 
 echo "💫🍰🌸 Bootstrap finished!"
