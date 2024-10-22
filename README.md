@@ -1,4 +1,4 @@
-# Quickstart
+# quickstart
 Run and wait. Only tested on Ubuntu 22.04. **Warning:** will overwrite without confirmation.
 ```bash
 git clone https://github.com/evanarlian/dotfiles.git && cd dotfiles && sudo apt update && ./install.sh
@@ -9,7 +9,7 @@ sudo chsh -s /usr/bin/fish "$USER"
 ```
 Restart your terminal.
 
-# Usage
+# usage
 Using `stow` to put symlinks to another places. `--adopt` can be used to resolve conflicts by copying existing content and creating a symlink in its place.
 ```bash
 stow bash  
@@ -25,8 +25,8 @@ tmux a -t _sanity_check
 tmux kill-session -t _sanity_check  # after done looking
 ```
 
-# Guidelines
+# guidelines
 * Some versions are hardcoded (locked to the same version):
     * fzf
-    * CaskaydiaCode font
+    * CaskaydiaMonoNerdFont (I chose mono because it is ligature-free)
 * After changing shell, tmux might still use the old default. Restart solves this.
