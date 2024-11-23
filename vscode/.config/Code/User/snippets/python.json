@@ -66,12 +66,6 @@
 			"from IPython import embed; embed()",
 		],
 	},
-	"dict to device": {
-		"prefix": "!kvdevice",
-		"body": [
-			"${1:my_dict} = {k: v.to(${2:device}) for k, v in ${1:my_dict}.items()}$0",
-		],
-	},
 	"pytest parameterize": {
 		"prefix": "!pmp",
 		"body": [
