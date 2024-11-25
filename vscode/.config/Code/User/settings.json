@@ -50,6 +50,7 @@
     "editor.formatOnSave": true,
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 500,
+    "editor.formatOnPaste": false,
     // python
     "python.envFile": "",
     "python.defaultInterpreterPath": "/home/evan/miniconda3/envs/ml/bin/python",
