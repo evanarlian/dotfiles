@@ -121,6 +121,7 @@ append_cuda_ld_libraries() {
 EOF
     sudo mv $tempfile /etc/ld.so.conf.d/zzz_conda_cuda_ld_lib.conf
     sudo ldconfig  # rebuild dynamic linker cache
+    fish -c "set -Ux CUDA_HOME /home/$USER/miniconda3/envs/cuda12"  # some python libs require this, e.g. deepspeed
 }
 
 

@@ -50,6 +50,7 @@
     "editor.formatOnSave": true,
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 500,
+    "editor.formatOnPaste": false,
     // python
     "python.envFile": "",
     "python.defaultInterpreterPath": "/home/evan/miniconda3/envs/ml/bin/python",
@@ -65,6 +66,10 @@
             88
         ],
     },
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.inlayHints.pytestParameters": true,
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.callArgumentNames": "all",
     // mojo
     "mojo.modularHomePath": "/home/evan/.modular",
     // jupyter
@@ -105,4 +110,5 @@
         "iconColour": "#088044"
     },
     "todo-tree.highlights.highlightDelay": 50,
+    "jupyter.debugJustMyCode": false,
 }
