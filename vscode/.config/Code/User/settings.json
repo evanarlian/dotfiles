@@ -111,7 +111,7 @@
     "todo-tree.highlights.defaultHighlight": {
         "type": "tag",
         "fontStyle": "italic",
-        "foreground": "#FF0000",
+        "foreground": "#fb4934",
         "iconColour": "#088044"
     },
     "todo-tree.highlights.highlightDelay": 50,
