@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-set -eu
+set -Eeuxo pipefail
 
 install_essentials() {
     # setup git lfs repository
@@ -87,6 +86,8 @@ python_shortcut() {
 
 install_python_tooling() {
     curl -LsSf https://astral.sh/uv/install.sh | sh
+    # TODO add uv tools, there are a lot of nice python tools
+    # eg httpie, ruff, glance, etc
 }
 
 fix_nvidia_sleep() {

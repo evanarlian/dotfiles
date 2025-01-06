@@ -53,7 +53,8 @@
     "editor.formatOnPaste": false,
     // python
     "python.envFile": "",
-    "python.defaultInterpreterPath": "/home/evan/miniconda3/envs/ml/bin/python",
+    "python.defaultInterpreterPath": ".venv/bin/python",
+    "python.terminal.activateEnvironment": false,
     "python.analysis.typeCheckingMode": "standard",
     "python.analysis.autoImportCompletions": true,
     "[python]": {
@@ -94,7 +95,11 @@
     "remote.SSH.connectTimeout": 60,
     "debug.onTaskErrors": "showErrors",
     "files.exclude": {
-        "**/__pycache__": true
+        "**/__pycache__": true,
+        "**/.ipynb_checkpoints": true,
+        "**/.pytest_cache": true,
+        "**/.ruff_cache": true,
+        "**/.venv": true
     },
     "hexeditor.defaultEndianness": "little",
     "git.openRepositoryInParentFolders": "never",
@@ -110,5 +115,4 @@
         "iconColour": "#088044"
     },
     "todo-tree.highlights.highlightDelay": 50,
-    "jupyter.debugJustMyCode": false,
 }

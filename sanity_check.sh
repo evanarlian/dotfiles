@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-set -eu
+set -Eeuxo pipefail
 
 SESS="_sanity_check"
 
