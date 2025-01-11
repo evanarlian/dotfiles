@@ -26,7 +26,7 @@ tmux kill-session -t _sanity_check  # after done looking
 ```
 
 # guidelines
-* Some versions are hardcoded (locked to the same version):
+* Some versions are hardcoded, periodically update these:
     * fzf
-    * CaskaydiaMonoNerdFont (I chose mono because it is ligature-free)
+    * CaskaydiaMonoNerdFont (mono is ligature-free)
 * After changing shell, tmux might still use the old default. Restart solves this.
