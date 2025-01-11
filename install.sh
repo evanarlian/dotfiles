@@ -65,7 +65,7 @@ stow_all() {
     mkdir -p ~/.config/Code/User/
     # --adopt means taking existing file and overwriting files here (dotfiles repo)
     # --adopt followed by 'git restore .' is like saying: delete and use dotfiles only
-    apps=(bash conda fish git rust starship tmux vscode)
+    apps=(bash conda fish git starship tmux vscode)
     for app in "${apps[@]}"; do
         stow --adopt "$app"
     done
