@@ -6,7 +6,7 @@ install_essentials() {
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
     sudo apt install -y \
         git git-lfs stow wget curl \
-        grep jq tree \
+        unzip grep jq tree \
         micro htop tmux \
         build-essential
     git lfs install
