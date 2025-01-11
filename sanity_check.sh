@@ -54,6 +54,7 @@ function test_python_tooling() {
     tmux splitp -h -t $SESS:$WIN.3
     tmux send -t $SESS:$WIN.1 "uv --version" enter
     tmux send -t $SESS:$WIN.1 "uvx --version" enter
+    tmux send -t $SESS:$WIN.2 "fish" enter
     tmux send -t $SESS:$WIN.2 "uv ru" tab  # test autocomplete works or not
     tmux send -t $SESS:$WIN.3 "fish" enter
     tmux send -t $SESS:$WIN.3 "um" space "as" tab  # test my fish completer works or not
