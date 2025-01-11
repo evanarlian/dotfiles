@@ -5,17 +5,17 @@ install_essentials() {
     # setup git lfs repository
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
     sudo apt install -y \
+        software-properties-common \
         git git-lfs stow wget curl \
         grep jq tree \
         micro htop tmux \
         build-essential
     git lfs install
     # install fzf from release page because apt is outdated
-    FZF_VER="fzf-0.49.0-linux_amd64.tar.gz"
-    wget https://github.com/junegunn/fzf/releases/download/0.49.0/$FZF_VER
+    wget https://github.com/junegunn/fzf/releases/download/v0.57.0/fzf-0.57.0-linux_amd64.tar.gz -O fzf.tar.gz
     mkdir -p $HOME/.local/bin/
-    tar -xf $FZF_VER --directory=$HOME/.local/bin/
-    rm $FZF_VER
+    tar -xf fzf.tar.gz --directory=$HOME/.local/bin/ 
+    rm fzf.tar.gz
 }
 
 install_fish() {
@@ -57,7 +57,7 @@ install_rust() {
     ~/.cargo/bin/cargo binstall -y \
         bat fd-find just ripgrep tealdeer \
         starship
-    tldr --update
+    ~/.cargo/bin/tldr --update
 }
 
 stow_all() {
