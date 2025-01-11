@@ -49,8 +49,16 @@ function test_rust() {
 function test_python_tooling() {
     WIN="py_tools"
     tmux new-window -t $SESS -n $WIN
-    tmux send -t $SESS:$WIN "uv" enter
+    tmux splitp -v -t $SESS:$WIN.1
+    tmux splitp -h -t $SESS:$WIN.1
+    tmux splitp -h -t $SESS:$WIN.3
+    tmux send -t $SESS:$WIN.1 "uv --version" enter
+    tmux send -t $SESS:$WIN.1 "uvx --version" enter
+    tmux send -t $SESS:$WIN.2 "uv ru" tab  # test autocomplete works or not
+    tmux send -t $SESS:$WIN.3 "fish" enter
+    tmux send -t $SESS:$WIN.3 "um" space "as" tab  # test my fish completer works or not
 }
+
 
 if tmux has-session -t $SESS 2>/dev/null; then
     echo "tmux session $SESS exists, kill first to run sanity check again."

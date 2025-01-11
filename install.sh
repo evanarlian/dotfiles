@@ -85,6 +85,7 @@ python_shortcut() {
 }
 
 install_python_tooling() {
+    # install uv and uvx
     curl -LsSf https://astral.sh/uv/install.sh | sh
     # TODO add uv tools, there are a lot of nice python tools
     # eg httpie, ruff, glance, etc
