@@ -1,22 +1,20 @@
 #!/usr/bin/env bash
-
-set -eu
+set -Eeuxo pipefail
 
 install_essentials() {
     # setup git lfs repository
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
     sudo apt install -y \
         git git-lfs stow wget curl \
-        grep jq tree \
+        unzip grep jq tree \
         micro htop tmux \
         build-essential
     git lfs install
     # install fzf from release page because apt is outdated
-    FZF_VER="fzf-0.49.0-linux_amd64.tar.gz"
-    wget https://github.com/junegunn/fzf/releases/download/0.49.0/$FZF_VER
+    wget https://github.com/junegunn/fzf/releases/download/v0.57.0/fzf-0.57.0-linux_amd64.tar.gz -O fzf.tar.gz
     mkdir -p $HOME/.local/bin/
-    tar -xf $FZF_VER --directory=$HOME/.local/bin/
-    rm $FZF_VER
+    tar -xf fzf.tar.gz --directory=$HOME/.local/bin/ 
+    rm fzf.tar.gz
 }
 
 install_fish() {
@@ -58,7 +56,7 @@ install_rust() {
     ~/.cargo/bin/cargo binstall -y \
         bat fd-find just ripgrep tealdeer \
         starship
-    tldr --update
+    ~/.cargo/bin/tldr --update
 }
 
 stow_all() {
@@ -66,7 +64,7 @@ stow_all() {
     mkdir -p ~/.config/Code/User/
     # --adopt means taking existing file and overwriting files here (dotfiles repo)
     # --adopt followed by 'git restore .' is like saying: delete and use dotfiles only
-    apps=(bash conda fish git rust starship tmux vscode)
+    apps=(bash conda fish git starship tmux vscode)
     for app in "${apps[@]}"; do
         stow --adopt "$app"
     done
@@ -86,7 +84,10 @@ python_shortcut() {
 }
 
 install_python_tooling() {
+    # install uv and uvx
     curl -LsSf https://astral.sh/uv/install.sh | sh
+    # TODO add uv tools, there are a lot of nice python tools
+    # eg httpie, ruff, glance, etc
 }
 
 fix_nvidia_sleep() {
