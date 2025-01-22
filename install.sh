@@ -93,7 +93,7 @@ install_python_tooling() {
         yt-dlp
     )
     for uv_tool in "${uv_tools[@]}"; do
-        fish -c "$HOME/.local/bin/ $uv_tool"
+        fish -c "$HOME/.local/bin/uv tool install $uv_tool"
     done
 }
 
