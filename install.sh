@@ -86,8 +86,15 @@ python_shortcut() {
 install_python_tooling() {
     # install uv and uvx
     curl -LsSf https://astral.sh/uv/install.sh | sh
-    # TODO add uv tools, there are a lot of nice python tools
-    # eg httpie, ruff, glance, etc
+    # add uv tools
+    uv_tools=(
+        ipython
+        ruff
+        yt-dlp
+    )
+    for uv_tool in "${uv_tools[@]}"; do
+        fish -c "$HOME/.local/bin/ $uv_tool"
+    done
 }
 
 fix_nvidia_sleep() {
