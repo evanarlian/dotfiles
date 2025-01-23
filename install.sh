@@ -122,9 +122,7 @@ append_cuda_ld_libraries() {
     # write to temp file first to capture the script executor's name
     tempfile=$(mktemp)
     cat << EOF > $tempfile
-/home/$USER/miniconda3/envs/cuda11/lib
 /home/$USER/miniconda3/envs/cuda12/lib
-/home/$USER/miniconda3/envs/cudnn8/lib
 /home/$USER/miniconda3/envs/cudnn9/lib
 EOF
     sudo mv $tempfile /etc/ld.so.conf.d/zzz_conda_cuda_ld_lib.conf
