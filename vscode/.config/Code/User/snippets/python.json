@@ -76,4 +76,10 @@
 			"    display($0)",
 		],
 	},
+	"IPython display import": {
+		"prefix": "!ipd",
+		"body": [
+			"import IPython.display as ipd",
+		],
+	},
 }
