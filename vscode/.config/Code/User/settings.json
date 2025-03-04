@@ -71,8 +71,6 @@
     "python.analysis.inlayHints.pytestParameters": true,
     "python.analysis.inlayHints.functionReturnTypes": true,
     "python.analysis.inlayHints.callArgumentNames": "all",
-    // mojo
-    "mojo.modularHomePath": "/home/evan/.modular",
     // jupyter
     "jupyter.askForKernelRestart": false,
     "notebook.output.lineHeight": 1.25,
