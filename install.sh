@@ -86,8 +86,15 @@ python_shortcut() {
 install_python_tooling() {
     # install uv and uvx
     curl -LsSf https://astral.sh/uv/install.sh | sh
-    # TODO add uv tools, there are a lot of nice python tools
-    # eg httpie, ruff, glance, etc
+    # add uv tools
+    uv_tools=(
+        ipython
+        ruff
+        yt-dlp
+    )
+    for uv_tool in "${uv_tools[@]}"; do
+        fish -c "$HOME/.local/bin/uv tool install $uv_tool"
+    done
 }
 
 fix_nvidia_sleep() {
@@ -115,9 +122,7 @@ append_cuda_ld_libraries() {
     # write to temp file first to capture the script executor's name
     tempfile=$(mktemp)
     cat << EOF > $tempfile
-/home/$USER/miniconda3/envs/cuda11/lib
 /home/$USER/miniconda3/envs/cuda12/lib
-/home/$USER/miniconda3/envs/cudnn8/lib
 /home/$USER/miniconda3/envs/cudnn9/lib
 EOF
     sudo mv $tempfile /etc/ld.so.conf.d/zzz_conda_cuda_ld_lib.conf

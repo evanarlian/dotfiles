@@ -115,4 +115,6 @@
         "iconColour": "#088044"
     },
     "todo-tree.highlights.highlightDelay": 50,
+    "editor.suggest.localityBonus": true,
+    "editor.suggestSelection": "recentlyUsed",
 }

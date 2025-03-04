@@ -58,6 +58,9 @@ function test_python_tooling() {
     tmux send -t $SESS:$WIN.2 "uv ru" tab  # test autocomplete works or not
     tmux send -t $SESS:$WIN.3 "fish" enter
     tmux send -t $SESS:$WIN.3 "um" space "as" tab  # test my fish completer works or not
+    tmux send -t $SESS:$WIN.4 "ipython --version" enter
+    tmux send -t $SESS:$WIN.4 "yt-dlp --version" enter
+    tmux send -t $SESS:$WIN.4 "ruff --version" enter
 }
 
 
