@@ -114,4 +114,5 @@
     },
     "todo-tree.highlights.highlightDelay": 50,
     "editor.suggest.localityBonus": true,
+    "errorLens.enabled": true,
 }
