@@ -71,8 +71,6 @@
     "python.analysis.inlayHints.pytestParameters": true,
     "python.analysis.inlayHints.functionReturnTypes": true,
     "python.analysis.inlayHints.callArgumentNames": "all",
-    // mojo
-    "mojo.modularHomePath": "/home/evan/.modular",
     // jupyter
     "jupyter.askForKernelRestart": false,
     "notebook.output.lineHeight": 1.25,
@@ -116,5 +114,7 @@
     },
     "todo-tree.highlights.highlightDelay": 50,
     "editor.suggest.localityBonus": true,
-    "editor.suggestSelection": "recentlyUsed",
+    "errorLens.enabled": true,
+    "update.mode": "manual",
+    "jupyter.debugJustMyCode": true,
 }

@@ -17,6 +17,10 @@
 		"body": [
 			"#!/usr/bin/env bash",
 			"set -Eeuxo pipefail",
+			"",
+			"set -a",
+			"source .env",
+			"set +a",
 		],
 	},
 }
