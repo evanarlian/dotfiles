@@ -26,6 +26,8 @@
 	"async main script guard": {
 		"prefix": "!amain",
 		"body": [
+			"import asyncio",
+			"",
 			"async def main():",
 			"    ${0:pass}",
 			"",
