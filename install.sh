@@ -59,7 +59,7 @@ install_rust() {
     ~/.cargo/bin/tldr --update
 }
 
-stow_all() {
+restore_all_config() {
     # for vscode, we create the fake folder first to prevent stow to create symlink from so far above
     mkdir -p ~/.config/Code/User/
     # --adopt means taking existing file and overwriting files here (dotfiles repo)
@@ -137,7 +137,7 @@ install_essentials
 install_fish
 install_miniconda
 install_rust
-stow_all
+restore_all_config
 fish_clean_up
 python_shortcut
 install_python_tooling
