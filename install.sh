@@ -69,6 +69,8 @@ stow_all() {
         stow --adopt "$app"
     done
     git restore .
+    # for tilix, there is no stow but instead use dconf
+    dconf load /com/gexperts/Tilix/ < tilix/tilix.dconf
 }
 
 fish_clean_up() {

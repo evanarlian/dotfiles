@@ -26,7 +26,8 @@ tmux kill-session -t _sanity_check  # after done looking
 ```
 
 # guidelines
-* Some versions are hardcoded, periodically update these:
-    * fzf
+* Some things need to be periodically updated:
+    * fzf (just bump the version from latest in github)
     * CaskaydiaMonoNerdFont (mono is ligature-free)
+    * tilix.dconf (to update: `dconf dump /com/gexperts/Tilix/ > tilix/tilix.dconf`)
 * After changing shell, tmux might still use the old default. Restart solves this.
