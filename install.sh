@@ -18,8 +18,8 @@ install_essentials() {
 }
 
 install_fish() {
-    # install newest version of fish directly from ppa
-    sudo apt-add-repository ppa:fish-shell/release-3 -y
+    # install newest (4.x, rust) version of fish directly from ppa
+    sudo apt-add-repository ppa:fish-shell/release-4 -y
     sudo apt update
     sudo apt install fish -y
     # fisher and fish plugins
