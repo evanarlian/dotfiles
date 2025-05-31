@@ -117,4 +117,5 @@
     "errorLens.enabled": true,
     "update.mode": "manual",
     "jupyter.debugJustMyCode": true,
+    "security.workspace.trust.enabled": false,
 }
