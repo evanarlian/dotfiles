@@ -35,6 +35,8 @@ install_fish() {
     for plugin in "${fish_plugins[@]}"; do
         fish -c "fisher install $plugin"
     done
+    fish -c 'fish_add_path --move ~/.local/bin/'
+    fish -c 'fish_config theme choose "Base16 Eighties" && yes | fish_config theme save'
 }
 
 install_miniconda() {
@@ -71,12 +73,6 @@ restore_all_config() {
     git restore .
     # for tilix, there is no stow but instead use dconf
     dconf load /com/gexperts/Tilix/ < tilix/tilix.dconf
-}
-
-fish_clean_up() {
-    fish -c 'set -U fish_greeting'
-    fish -c 'fish_add_path -m ~/.local/bin/'
-    fish -c 'fish_config theme choose "Base16 Eighties" && yes | fish_config theme save'
 }
 
 python_shortcut() {
@@ -138,7 +134,6 @@ install_fish
 install_miniconda
 install_rust
 restore_all_config
-fish_clean_up
 python_shortcut
 install_python_tooling
 fix_nvidia_sleep

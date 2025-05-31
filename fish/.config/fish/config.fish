@@ -3,6 +3,8 @@ if status is-interactive
     fzf_configure_bindings --directory="ctrl-f" --processes="ctrl-p" --history="ctrl-r" --variables="ctrl-e"
 end
 
+set -g fish_greeting
+
 source $__fish_config_dir/abbr.fish
 source "$HOME/.cargo/env.fish"
 
