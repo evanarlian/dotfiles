@@ -76,6 +76,11 @@
     "notebook.output.lineHeight": 1.25,
     "notebook.output.textLineLimit": 100,
     "notebook.output.wordWrap": true,
+    "notebook.defaultFormatter": "charliermarsh.ruff",
+    "notebook.formatOnSave.enabled": true,
+    "notebook.codeActionsOnSave": {
+        "notebook.source.organizeImports": "explicit"
+    },
     // cpp
     "C_Cpp.intelliSenseUpdateDelay": 500,
     "C_Cpp.codeAnalysis.updateDelay": 0,
