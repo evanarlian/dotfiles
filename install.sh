@@ -18,8 +18,8 @@ install_essentials() {
 }
 
 install_fish() {
-    # install newest version of fish directly from ppa
-    sudo apt-add-repository ppa:fish-shell/release-3 -y
+    # install newest (4.x, rust) version of fish directly from ppa
+    sudo apt-add-repository ppa:fish-shell/release-4 -y
     sudo apt update
     sudo apt install fish -y
     # fisher and fish plugins
@@ -35,6 +35,8 @@ install_fish() {
     for plugin in "${fish_plugins[@]}"; do
         fish -c "fisher install $plugin"
     done
+    fish -c 'fish_add_path --move ~/.local/bin/'
+    fish -c 'fish_config theme choose "Base16 Eighties" && yes | fish_config theme save'
 }
 
 install_miniconda() {
@@ -59,7 +61,7 @@ install_rust() {
     ~/.cargo/bin/tldr --update
 }
 
-stow_all() {
+restore_all_config() {
     # for vscode, we create the fake folder first to prevent stow to create symlink from so far above
     mkdir -p ~/.config/Code/User/
     # --adopt means taking existing file and overwriting files here (dotfiles repo)
@@ -69,12 +71,8 @@ stow_all() {
         stow --adopt "$app"
     done
     git restore .
-}
-
-fish_clean_up() {
-    fish -c 'set -U fish_greeting'
-    fish -c 'fish_add_path -m ~/.local/bin/'
-    fish -c 'fish_config theme choose "Base16 Eighties" && yes | fish_config theme save'
+    # for tilix, there is no stow but instead use dconf
+    dconf load /com/gexperts/Tilix/ < tilix/tilix.dconf
 }
 
 python_shortcut() {
@@ -135,8 +133,7 @@ install_essentials
 install_fish
 install_miniconda
 install_rust
-stow_all
-fish_clean_up
+restore_all_config
 python_shortcut
 install_python_tooling
 fix_nvidia_sleep
