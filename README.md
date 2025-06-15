@@ -34,6 +34,7 @@ tmux kill-session -t _sanity_check  # after done looking
   * make easily editable repo, such as last-minute config can be applied super fast by editing the repo
   * convert to idempotent operations, just like declarative approach. Running dotfiles multiple time should not cause issues
   * change readme, one liner is great, but explanation is good.
+  * guard all fish config with if statements to prevent sourcing error
 * Some things need to be periodically updated:
     * fzf (just bump the version from latest in github)
     * CaskaydiaMonoNerdFont (mono is ligature-free)
