@@ -1,9 +1,3 @@
-# new chezmoi
-installing chezmoi on ~/.local/bin 
-```
-sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin
-```
-
 # quickstart
 Run and wait. Only tested on Ubuntu 22.04. **Warning:** will overwrite without confirmation.
 ```bash
