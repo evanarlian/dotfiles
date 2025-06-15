@@ -1,12 +1,13 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
-    fzf_configure_bindings --directory="ctrl-f" --processes="ctrl-p" --history="ctrl-r" --variables="ctrl-e"
 end
 
 set -g fish_greeting
 
 source $__fish_config_dir/abbr.fish
 source "$HOME/.cargo/env.fish"
+fish_add_path "$HOME/bin"
+fish_add_path "$HOME/.local/bin"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -21,11 +22,12 @@ else
 end
 # <<< conda initialize <<<
 
-# Keybinding
+# Keybindings
 bind ctrl-h backward-kill-word # enable ctrl backspace
 bind ctrl-delete kill-word
 
-# The next line updates PATH for the Google Cloud SDK.
+# Fish plugins
+fzf_configure_bindings --directory="ctrl-f" --processes="ctrl-p" --history="ctrl-r" --variables="ctrl-e"
 if [ -f "/home/$USER/google-cloud-sdk/path.fish.inc" ]
     . "/home/$USER/google-cloud-sdk/path.fish.inc"
 end
