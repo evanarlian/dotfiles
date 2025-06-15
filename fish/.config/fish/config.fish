@@ -30,7 +30,8 @@ if [ -f "/home/$USER/google-cloud-sdk/path.fish.inc" ]
     . "/home/$USER/google-cloud-sdk/path.fish.inc"
 end
 
-# starship must be at the very bottom to shadow all prompt modifiers
-starship init fish | source
 uv generate-shell-completion fish | source
 uvx --generate-shell-completion fish | source
+
+# starship must be at the very bottom to shadow all prompt modifiers
+starship init fish | source

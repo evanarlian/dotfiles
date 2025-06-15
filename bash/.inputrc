@@ -1,2 +1,0 @@
-# enable delete whole word using backspace in terminal
-"\C-h": backward-kill-word
