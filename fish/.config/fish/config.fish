@@ -4,8 +4,12 @@ end
 
 set -g fish_greeting
 
-source $__fish_config_dir/abbr.fish
-source "$HOME/.cargo/env.fish"
+if test -f "$__fish_config_dir/abbr.fish"
+    source "$__fish_config_dir/abbr.fish"
+end
+if test -f "$HOME/.cargo/env.fish"
+    source "$HOME/.cargo/env.fish"
+end
 fish_add_path "$HOME/bin"
 fish_add_path "$HOME/.local/bin"
 
@@ -27,13 +31,21 @@ bind ctrl-h backward-kill-word # enable ctrl backspace
 bind ctrl-delete kill-word
 
 # Fish plugins
-fzf_configure_bindings --directory="ctrl-f" --processes="ctrl-p" --history="ctrl-r" --variables="ctrl-e"
+if functions -q fzf_configure_bindings
+    fzf_configure_bindings --directory="ctrl-f" --processes="ctrl-p" --history="ctrl-r" --variables="ctrl-e"
+end
 if [ -f "/home/$USER/google-cloud-sdk/path.fish.inc" ]
     . "/home/$USER/google-cloud-sdk/path.fish.inc"
 end
 
-uv generate-shell-completion fish | source
-uvx --generate-shell-completion fish | source
+if type -q uv
+    uv generate-shell-completion fish | source
+end
+if type -q uvx
+    uvx --generate-shell-completion fish | source
+end
 
 # starship must be at the very bottom to shadow all prompt modifiers
-starship init fish | source
+if type -q starship
+    starship init fish | source
+end
