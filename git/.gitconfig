@@ -1,10 +1,13 @@
-[credential]
-	helper = /usr/local/share/gcm-core/git-credential-manager-core
-	credentialStore = secretservice
-	guiPrompt = false
+# TODO remove we are using ssh anyway
+# [credential]
+# 	helper = /usr/local/share/gcm-core/git-credential-manager-core
+# 	credentialStore = secretservice
+# 	guiPrompt = false
 [user]
 	name = Evan Arlian
 	email = evanarlian2000@gmail.com
+[includeIf "gitdir:~/work/"]
+    path = ~/.gitconfig-work
 [core]
 	autocrlf = input
 [credential "https://dev.azure.com"]
