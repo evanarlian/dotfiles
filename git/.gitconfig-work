@@ -1,6 +1,6 @@
 [user]
     name = Evan Arlian
-	email = evanarlian2000@gmail.com
-	signingkey = 0x818F7F5B1995C76B55E4D33F03B17932929BF3C0
+	email = evan.arlian@getboon.ai
+	signingkey = 0xA8017E9A4BB19B230FE95E94D94D522E6207EF81
 [commit]
 	gpgsign = true
