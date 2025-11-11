@@ -3,6 +3,7 @@ if status is-interactive
 end
 
 set -g fish_greeting
+set -g fish_prompt_pwd_dir_length 3
 
 if test -f "$__fish_config_dir/abbr.fish"
     source "$__fish_config_dir/abbr.fish"
@@ -62,3 +63,8 @@ end
 if type -q starship
     starship init fish | source
 end
+
+# Added by `rbenv init` on Tue Jun 17 02:03:17 WIB 2025
+status --is-interactive; and rbenv init - --no-rehash fish | source
+set -gx OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
+#poetry config virtualenvs.in-project true

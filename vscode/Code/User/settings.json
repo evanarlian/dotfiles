@@ -6,7 +6,7 @@
     "window.zoomLevel": -0.25,
     "window.customMenuBarAltFocus": false,
     "window.enableMenuBarMnemonics": false,
-    "workbench.panel.defaultLocation": "right",
+    "workbench.panel.defaultLocation": "bottom",
     "workbench.editor.wrapTabs": true,
     "workbench.startupEditor": "none",
     "workbench.iconTheme": "material-icon-theme",
@@ -20,7 +20,7 @@
     "material-icon-theme.activeIconPack": "none",
     "material-icon-theme.saturation": 0.8,
     // text editor ui
-    "editor.fontFamily": "CaskaydiaMono Nerd Font",
+    // "editor.fontFamily": "CaskaydiaMono Nerd Font",
     "editor.fontLigatures": false,
     "editor.bracketPairColorization.enabled": false,
     "editor.quickSuggestionsDelay": 0,
@@ -62,10 +62,7 @@
         "editor.formatOnType": false,
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"
-        },
-        "editor.rulers": [
-            88
-        ],
+        }
     },
     "python.analysis.inlayHints.variableTypes": true,
     "python.analysis.inlayHints.pytestParameters": true,
@@ -81,6 +78,29 @@
     "notebook.codeActionsOnSave": {
         "notebook.source.organizeImports": "explicit"
     },
+    // web stuff
+    "[javascript]": {
+        "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "biomejs.biome",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports.biome": "explicit",
+            "source.fixAll.biome": "explicit"
+        }
+    },
+    "[html]": {
+        "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "biomejs.biome"
+    },
     // cpp
     "C_Cpp.intelliSenseUpdateDelay": 500,
     "C_Cpp.codeAnalysis.updateDelay": 0,
@@ -93,19 +113,18 @@
     // git and gitlens
     "git.confirmSync": false,
     "git.suggestSmartCommit": false,
-    "gitlens.mode.active": "zen",
     // misc
     "remote.SSH.connectTimeout": 60,
     "debug.onTaskErrors": "showErrors",
     "files.exclude": {
         "**/__pycache__": true,
+        "**/.git": true,
         "**/.ipynb_checkpoints": true,
         "**/.pytest_cache": true,
         "**/.ruff_cache": true,
         "**/.venv": true
     },
     "hexeditor.defaultEndianness": "little",
-    "git.openRepositoryInParentFolders": "never",
     "errorLens.enabledDiagnosticLevels": [
         "warning",
         "info",
@@ -119,8 +138,19 @@
     },
     "todo-tree.highlights.highlightDelay": 50,
     "editor.suggest.localityBonus": true,
-    "errorLens.enabled": true,
+    "errorLens.enabled": false,
     "update.mode": "manual",
     "jupyter.debugJustMyCode": true,
     "security.workspace.trust.enabled": false,
+    "git.autofetch": true,
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "git.openRepositoryInParentFolders": "always",
+    "gitlens.mode.active": "zen",
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "chat.disableAIFeatures": true,
+    "amp.url": "https://ampcode.com/",
+    "editor.wordBasedSuggestions": "off",
+    "amp.tab.enabled": false,
 }

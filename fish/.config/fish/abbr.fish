@@ -8,6 +8,7 @@ abbr --add g 'git'
 abbr --add gco 'git checkout'
 abbr --add gcom --set-cursor 'git commit -m "%"'
 abbr --add glog 'git log --graph --oneline --all'
+abbr --add gs 'git status'
 
 # misc
 abbr --add c 'code .'
