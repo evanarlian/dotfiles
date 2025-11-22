@@ -1,4 +1,10 @@
-# quickstart
+# todo
+need a lot of work
+* fish_variables is untracked?? is this pregenerated?
+* the actual installation
+* separate cursor and vscode setting.json, but i might take the snippets to cursor area too
+
+# quickstart (outdated)
 Run and wait. Only tested on Ubuntu 22.04. **Warning:** will overwrite without confirmation.
 ```bash
 git clone https://github.com/evanarlian/dotfiles.git && cd dotfiles && sudo apt update && ./install.sh
@@ -27,7 +33,6 @@ tmux kill-session -t _sanity_check  # after done looking
 
 # guidelines
 * TODO:
-  * recheck **fish** again in the future because 4.0.2 tab cycle is broken on vscode, while nightly is not
   * check on git config (secretservice)
   * make main branch the core branch, and child branch: ubuntu, macos, ubuntu_vm, etc
   * the mindset must be shifted, installation must come first, and then config population later
@@ -37,4 +42,3 @@ tmux kill-session -t _sanity_check  # after done looking
 * Some things need to be periodically updated:
     * fzf (just bump the version from latest in github)
     * CaskaydiaMonoNerdFont (mono is ligature-free)
-    * tilix.dconf (to update: `dconf dump /com/gexperts/Tilix/ > tilix/tilix.dconf`)

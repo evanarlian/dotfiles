@@ -6,7 +6,7 @@
     "window.zoomLevel": -0.25,
     "window.customMenuBarAltFocus": false,
     "window.enableMenuBarMnemonics": false,
-    "workbench.panel.defaultLocation": "bottom",
+    "workbench.panel.defaultLocation": "right",
     "workbench.editor.wrapTabs": true,
     "workbench.startupEditor": "none",
     "workbench.iconTheme": "material-icon-theme",
@@ -43,7 +43,7 @@
         "editorInlayHint.parameterForeground": "#d2bfa6",
         "editorInlayHint.typeForeground": "#d2bfa6",
     },
-    "editor.inlayHints.fontFamily": "Ubunto Mono",
+    // "editor.inlayHints.fontFamily": "Ubunto Mono",
     "editor.inlayHints.padding": true,
     "editor.inlayHints.fontSize": 12,
     // saving and formatting
@@ -78,29 +78,6 @@
     "notebook.codeActionsOnSave": {
         "notebook.source.organizeImports": "explicit"
     },
-    // web stuff
-    "[javascript]": {
-        "editor.defaultFormatter": "biomejs.biome"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "biomejs.biome"
-    },
-    "[javascriptreact]": {
-        "editor.defaultFormatter": "biomejs.biome"
-    },
-    "[typescriptreact]": {
-        "editor.defaultFormatter": "biomejs.biome",
-        "editor.codeActionsOnSave": {
-            "source.organizeImports.biome": "explicit",
-            "source.fixAll.biome": "explicit"
-        }
-    },
-    "[html]": {
-        "editor.defaultFormatter": "biomejs.biome"
-    },
-    "[css]": {
-        "editor.defaultFormatter": "biomejs.biome"
-    },
     // cpp
     "C_Cpp.intelliSenseUpdateDelay": 500,
     "C_Cpp.codeAnalysis.updateDelay": 0,
@@ -124,21 +101,13 @@
         "**/.ruff_cache": true,
         "**/.venv": true
     },
-    "hexeditor.defaultEndianness": "little",
     "errorLens.enabledDiagnosticLevels": [
         "warning",
         "info",
         "error"
     ],
-    "todo-tree.highlights.defaultHighlight": {
-        "type": "tag",
-        "fontStyle": "italic",
-        "foreground": "#fb4934",
-        "iconColour": "#088044"
-    },
-    "todo-tree.highlights.highlightDelay": 50,
     "editor.suggest.localityBonus": true,
-    "errorLens.enabled": false,
+    "errorLens.enabled": true,
     "update.mode": "manual",
     "jupyter.debugJustMyCode": true,
     "security.workspace.trust.enabled": false,

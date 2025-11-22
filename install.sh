@@ -8,18 +8,11 @@ install_essentials() {
         git git-lfs stow wget curl \
         unzip grep jq tree \
         micro htop tmux \
-        build-essential
+        build-essential fzf
     git lfs install
-    # install fzf from release page because apt is outdated
-    wget https://github.com/junegunn/fzf/releases/download/v0.57.0/fzf-0.57.0-linux_amd64.tar.gz -O fzf.tar.gz
-    mkdir -p $HOME/.local/bin/
-    tar -xf fzf.tar.gz --directory=$HOME/.local/bin/ 
-    rm fzf.tar.gz
 }
 
 install_fish() {
-    # install newest (4.x, rust) version of fish directly from ppa
-    sudo apt-add-repository ppa:fish-shell/release-4 -y
     sudo apt update
     sudo apt install fish -y
     # fisher and fish plugins
@@ -28,7 +21,6 @@ install_fish() {
         jorgebucaran/fisher
         patrickf1/fzf.fish
         jorgebucaran/nvm.fish
-        evanarlian/google-cloud-sdk-fish-completion
         jethrokuan/z
         evanarlian/python-module-fish-completion
     )
@@ -37,16 +29,6 @@ install_fish() {
     done
     fish -c 'fish_add_path --move ~/.local/bin/'
     fish -c 'fish_config theme choose "Base16 Eighties" && yes | fish_config theme save'
-}
-
-install_miniconda() {
-    mkdir -p ~/miniconda3
-    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
-    bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
-    rm -rf ~/miniconda3/miniconda.sh
-    # conda init is not really needed right now because we have user agnostic init commands in bash and fish
-    # below changes will be replaced by stow anyway
-    ~/miniconda3/bin/conda init bash fish
 }
 
 install_rust() {
@@ -59,40 +41,6 @@ install_rust() {
         bat fd-find just ripgrep tealdeer \
         starship
     ~/.cargo/bin/tldr --update
-}
-
-restore_all_config() {
-    # for vscode, we create the fake folder first to prevent stow to create symlink from so far above
-    mkdir -p ~/.config/Code/User/
-    # --adopt means taking existing file and overwriting files here (dotfiles repo)
-    # --adopt followed by 'git restore .' is like saying: delete and use dotfiles only
-    apps=(bash conda fish git starship tmux vscode)
-    for app in "${apps[@]}"; do
-        stow --adopt "$app"
-    done
-    git restore .
-    # for tilix, there is no stow but instead use dconf
-    dconf load /com/gexperts/Tilix/ < tilix/tilix.dconf
-}
-
-python_shortcut() {
-    if [ -e /usr/bin/python3 ] && [ ! -e /usr/bin/python ]; then
-        sudo ln -s /usr/bin/python3 /usr/bin/python
-    fi
-}
-
-install_python_tooling() {
-    # install uv and uvx
-    curl -LsSf https://astral.sh/uv/install.sh | sh
-    # add uv tools
-    uv_tools=(
-        ipython
-        ruff
-        yt-dlp
-    )
-    for uv_tool in "${uv_tools[@]}"; do
-        fish -c "$HOME/.local/bin/uv tool install $uv_tool"
-    done
 }
 
 fix_nvidia_sleep() {
