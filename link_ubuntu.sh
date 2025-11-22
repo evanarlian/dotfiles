@@ -27,7 +27,7 @@ link_file "$DOTFILES_DIR/.condarc" "$HOME/.condarc"
 link_file "$DOTFILES_DIR/starship.toml" "$HOME/.config/starship.toml"
 
 # Fish
-link_file "$DOTFILES_DIR/fish/.config/fish" "$HOME/.config/fish"
+link_file "$DOTFILES_DIR/fish" "$HOME/.config/fish"
 
 # VSCode
 link_file "$DOTFILES_DIR/vscode/Code/User/settings.json" "$HOME/.config/Code/User/settings.json"

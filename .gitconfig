@@ -5,3 +5,5 @@
     path = ~/.gitconfig_work
 [push]
 	autoSetupRemote = true
+[pull]
+	rebase = false

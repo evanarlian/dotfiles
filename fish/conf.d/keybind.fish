@@ -1,5 +1,5 @@
 if test (uname) = Darwin
-    # TODO try on real mac
+    # mac, works with and without my hammerspoon config 
     bind alt-backspace backward-kill-word
     bind alt-\( kill-word
 else
