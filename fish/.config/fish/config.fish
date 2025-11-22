@@ -8,9 +8,6 @@ set -g fish_prompt_pwd_dir_length 3
 fish_add_path "$HOME/bin"
 fish_add_path "$HOME/.local/bin"
 
-# Keybindings
-bind ctrl-h backward-kill-word # enable ctrl backspace
-bind ctrl-delete kill-word
 
 # Fish plugins
 if functions -q fzf_configure_bindings
