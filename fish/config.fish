@@ -22,11 +22,6 @@ if type -q uvx
     uvx --generate-shell-completion fish | source
 end
 
-# starship must be at the very bottom to shadow all prompt modifiers
-if type -q starship
-    starship init fish | source
-end
-
 # Added by `rbenv init` on Tue Jun 17 02:03:17 WIB 2025
 if type -q rbenv
     status --is-interactive; and rbenv init - --no-rehash fish | source

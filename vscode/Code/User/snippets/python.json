@@ -63,6 +63,14 @@
 			"args = parser.parse_args()$0",
 		],
 	},
+	"argument parser again": {
+		"prefix": "!parser",
+		"body": [
+			"parser = ArgumentParser()",
+			"parser.add_argument(\"$1\")",
+			"args = parser.parse_args()$0",
+		],
+	},
 	"time elapsed": {
 		"prefix": "!elapsed",
 		"body": [

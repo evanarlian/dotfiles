@@ -21,8 +21,6 @@
 			"#include <map>",
 			"#include <set>",
 			"#include <cmath>",
-			"",
-			"",
 		],
 	},
 	"print with fmt": {
