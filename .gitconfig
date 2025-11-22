@@ -2,6 +2,6 @@
 	name = Evan Arlian
 	email = evanarlian2000@gmail.com
 [includeIf "gitdir:~/work/"]
-    path = ~/.gitconfig-work
+    path = ~/.gitconfig_work
 [push]
 	autoSetupRemote = true
