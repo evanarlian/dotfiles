@@ -1,3 +1,5 @@
+# TODO change using new fish web config
+
 function fish_prompt
     set -l last_status $status
 

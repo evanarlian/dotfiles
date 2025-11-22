@@ -1,3 +1,5 @@
+# TODO change using new fish web config
+
 function fish_right_prompt
     set -l cmd_status $status
     if test $cmd_status -ne 0
