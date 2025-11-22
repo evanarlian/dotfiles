@@ -1,56 +1,40 @@
 {
     // vscode ui
-    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
     "window.titleBarStyle": "custom",
     "window.dialogStyle": "custom",
     "window.zoomLevel": -0.25,
     "window.customMenuBarAltFocus": false,
     "window.enableMenuBarMnemonics": false,
-    "workbench.panel.defaultLocation": "right",
+    "window.confirmBeforeClose": "keyboardOnly",
+    "workbench.panel.defaultLocation": "right", // different from macos
     "workbench.editor.wrapTabs": true,
-    "workbench.startupEditor": "none",
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Gruvbox Dark Hard",
     "explorer.compactFolders": false,
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
+    // text editor ui
+    "editor.fontLigatures": false,
+    "editor.bracketPairColorization.enabled": false,
+    "editor.wordWrap": "on",
+    "debug.console.acceptSuggestionOnEnter": "on",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.codeLens": true,
+    // theme
+    "workbench.colorTheme": "Gruvbox Dark Hard",
+    "workbench.iconTheme": "material-icon-theme",
     "material-icon-theme.hidesExplorerArrows": true,
     "material-icon-theme.folders.color": "#fdd835",
     "material-icon-theme.folders.theme": "classic",
     "material-icon-theme.activeIconPack": "none",
     "material-icon-theme.saturation": 0.8,
-    // text editor ui
-    // "editor.fontFamily": "CaskaydiaMono Nerd Font",
-    "editor.fontLigatures": false,
-    "editor.bracketPairColorization.enabled": false,
-    "editor.quickSuggestionsDelay": 0,
-    "editor.hover.delay": 200,
-    "editor.letterSpacing": -0.2,
-    "editor.wordWrap": "on",
-    "terminal.integrated.fontFamily": "CaskaydiaMono Nerd Font",
-    "terminal.integrated.persistentSessionReviveProcess": "never",
-    "terminal.integrated.enablePersistentSessions": false,
-    "debug.console.acceptSuggestionOnEnter": "on",
-    "diffEditor.ignoreTrimWhitespace": false,
-    "diffEditor.codeLens": true,
-    // inlay
-    "editor.inlayHints.enabled": "offUnlessPressed",
-    "workbench.colorCustomizations": {
-        "editorInlayHint.background": "#ffffff10",
-        "editorInlayHint.parameterBackground": "#ffffff10",
-        "editorInlayHint.typeBackground": "#ffffff10",
-        "editorInlayHint.foreground": "#d2bfa6",
-        "editorInlayHint.parameterForeground": "#d2bfa6",
-        "editorInlayHint.typeForeground": "#d2bfa6",
-    },
-    // "editor.inlayHints.fontFamily": "Ubunto Mono",
-    "editor.inlayHints.padding": true,
-    "editor.inlayHints.fontSize": 12,
     // saving and formatting
     "editor.formatOnSave": true,
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 500,
     "editor.formatOnPaste": false,
+    // inlay
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    "editor.inlayHints.padding": true,
+    "editor.inlayHints.fontSize": 12,
     // python
     "python.envFile": "",
     "python.defaultInterpreterPath": ".venv/bin/python",
@@ -69,9 +53,8 @@
     "python.analysis.inlayHints.functionReturnTypes": true,
     "python.analysis.inlayHints.callArgumentNames": "all",
     // jupyter
+    "jupyter.debugJustMyCode": true,
     "jupyter.askForKernelRestart": false,
-    "notebook.output.lineHeight": 1.25,
-    "notebook.output.textLineLimit": 100,
     "notebook.output.wordWrap": true,
     "notebook.defaultFormatter": "charliermarsh.ruff",
     "notebook.formatOnSave.enabled": true,
@@ -79,19 +62,13 @@
         "notebook.source.organizeImports": "explicit"
     },
     // cpp
-    "C_Cpp.intelliSenseUpdateDelay": 500,
-    "C_Cpp.codeAnalysis.updateDelay": 0,
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, TabWidth: 4, AccessModifierOffset: -4, AllowShortBlocksOnASingleLine: Empty, AllowShortFunctionsOnASingleLine: Empty }",
-    "cmake.configureSettings": {
-        "CMAKE_TOOLCHAIN_FILE": "/home/evan/Documents/vcpkg/scripts/buildsystems/vcpkg.cmake"
-    },
     // rust
     "rust-analyzer.check.command": "clippy",
     // git and gitlens
     "git.confirmSync": false,
     "git.suggestSmartCommit": false,
     // misc
-    "remote.SSH.connectTimeout": 60,
     "debug.onTaskErrors": "showErrors",
     "files.exclude": {
         "**/__pycache__": true,
@@ -101,25 +78,10 @@
         "**/.ruff_cache": true,
         "**/.venv": true
     },
-    "errorLens.enabledDiagnosticLevels": [
-        "warning",
-        "info",
-        "error"
-    ],
-    "editor.suggest.localityBonus": true,
     "errorLens.enabled": true,
-    "update.mode": "manual",
-    "jupyter.debugJustMyCode": true,
     "security.workspace.trust.enabled": false,
-    "git.autofetch": true,
-    "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
     "git.openRepositoryInParentFolders": "always",
-    "gitlens.mode.active": "zen",
     "github.copilot.nextEditSuggestions.enabled": true,
     "chat.disableAIFeatures": true,
-    "amp.url": "https://ampcode.com/",
-    "editor.wordBasedSuggestions": "off",
-    "amp.tab.enabled": false,
+    "gitlens.mode.active": "zen",
 }

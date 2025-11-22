@@ -38,3 +38,6 @@ end
 if test (uname) = Darwin
     set -gx OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
 end
+
+# Added by Antigravity
+fish_add_path "$HOME/antigravity/antigravity/bin"
