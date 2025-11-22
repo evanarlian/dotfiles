@@ -1,4 +1,5 @@
--- Replaces any word by word operations such that it can be activated by cmd too
+-- Replaces any word-by-word operations such that it can be activated by cmd too
+-- Note that this will disable Finder move to trash
 -- Low-level event tap for faster key handling
 local function handleKey(event)
     local keyCode = event:getKeyCode()
@@ -46,17 +47,9 @@ local function handleKey(event)
             return true
         end
     end
+
     return false -- Pass through other events
 end
 
 keyTap = hs.eventtap.new({hs.eventtap.event.types.keyDown}, handleKey)
 keyTap:start()
-
-
-
-
--- solution and todos:
--- skip wezterm during lua code,
--- integrate wezterm config
--- wezterm forward delete is incorrect
--- deleting file in Finder will not work, hence you need to remap delete file to be just ... delete

@@ -21,10 +21,9 @@ echo "🔗 Linking dotfiles from $DOTFILES_DIR"
 
 # Single files
 link_file "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
-link_file "$DOTFILES_DIR/.gitconfig-work" "$HOME/.gitconfig-work"
+link_file "$DOTFILES_DIR/.gitconfig_work" "$HOME/.gitconfig_work"
 link_file "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
 link_file "$DOTFILES_DIR/.condarc" "$HOME/.condarc"
-link_file "$DOTFILES_DIR/starship.toml" "$HOME/.config/starship.toml"
 
 # Fish
 link_file "$DOTFILES_DIR/fish" "$HOME/.config/fish"
