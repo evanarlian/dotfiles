@@ -6,6 +6,7 @@
     "window.customMenuBarAltFocus": false,
     "window.enableMenuBarMnemonics": false,
     "window.confirmBeforeClose": "keyboardOnly",
+    "workbench.startupEditor": "none",
     "workbench.panel.defaultLocation": "bottom",
     "workbench.editor.wrapTabs": true,
     "explorer.compactFolders": false,
