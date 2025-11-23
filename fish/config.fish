@@ -11,7 +11,13 @@ fish_add_path "$HOME/.local/bin"
 
 # Fish plugins
 if functions -q fzf_configure_bindings
-    fzf_configure_bindings --directory="ctrl-f" --processes="ctrl-p" --history="ctrl-r" --variables="ctrl-e"
+    # Search Directory   |  Ctrl+Alt+F (F for file)      |  --directory
+    # Search Git Log     |  Ctrl+Alt+L (L for log)       |  --git_log
+    # Search Git Status  |  Ctrl+Alt+S (S for status)    |  --git_status
+    # Search History     |  Ctrl+R     (R for reverse)   |  --history
+    # Search Processes   |  Ctrl+Alt+P (P for process)   |  --processes
+    # Search Variables   |  Ctrl+Alt+E (E for variable)  |  --variables (changed becase 'v' is related to paste)
+    fzf_configure_bindings --variables="ctrl-alt-e"
 end
 
 # uv

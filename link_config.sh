@@ -26,7 +26,5 @@ link_file "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
 link_file "$DOTFILES_DIR/.condarc" "$HOME/.condarc"
 link_file "$DOTFILES_DIR/fish" "$HOME/.config/fish"
 link_file "$DOTFILES_DIR/vscode/Code" "$HOME/.config/Code"
-# link_file "$DOTFILES_DIR/vscode/Code" "$HOME/Library/Application Support/Code"
-# link_file "$DOTFILES_DIR/.hammerspoon" "$HOME/.hammerspoon"
 
 echo "✨ Done!"

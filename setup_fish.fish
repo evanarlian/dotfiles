@@ -13,7 +13,6 @@ curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fi
 # Install fish plugins
 set fish_plugins \
     jorgebucaran/fisher \
-    jorgebucaran/hydro \
     patrickf1/fzf.fish \
     jethrokuan/z \
     evanarlian/python-module-fish-completion
