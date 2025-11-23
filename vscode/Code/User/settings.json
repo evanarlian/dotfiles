@@ -6,7 +6,7 @@
     "window.customMenuBarAltFocus": false,
     "window.enableMenuBarMnemonics": false,
     "window.confirmBeforeClose": "keyboardOnly",
-    "workbench.panel.defaultLocation": "right", // different from macos
+    "workbench.panel.defaultLocation": "right",
     "workbench.editor.wrapTabs": true,
     "explorer.compactFolders": false,
     "explorer.confirmDragAndDrop": false,
@@ -65,10 +65,13 @@
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, TabWidth: 4, AccessModifierOffset: -4, AllowShortBlocksOnASingleLine: Empty, AllowShortFunctionsOnASingleLine: Empty }",
     // rust
     "rust-analyzer.check.command": "clippy",
-    // git and gitlens
+    // git
     "git.confirmSync": false,
     "git.suggestSmartCommit": false,
+    "git.autofetch": true,
+    "git.openRepositoryInParentFolders": "always",
     // misc
+    "security.workspace.trust.enabled": false,
     "debug.onTaskErrors": "showErrors",
     "files.exclude": {
         "**/__pycache__": true,
@@ -78,10 +81,7 @@
         "**/.ruff_cache": true,
         "**/.venv": true
     },
-    "errorLens.enabled": true,
-    "security.workspace.trust.enabled": false,
-    "git.openRepositoryInParentFolders": "always",
     "github.copilot.nextEditSuggestions.enabled": true,
-    "chat.disableAIFeatures": true,
     "gitlens.mode.active": "zen",
+    "errorLens.enabled": true,
 }

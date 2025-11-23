@@ -1,9 +1,3 @@
-# todo
-need a lot of work
-* fish_variables is untracked?? is this pregenerated?
-* the actual installation
-* separate cursor and vscode setting.json, but i might take the snippets to cursor area too
-
 # quickstart (outdated)
 Run and wait. Only tested on Ubuntu 22.04. **Warning:** will overwrite without confirmation.
 ```bash
