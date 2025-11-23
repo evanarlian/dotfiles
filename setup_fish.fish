@@ -1,5 +1,12 @@
 #!/usr/bin/env fish
 
+# Change default shell to fish
+set fish_path (which fish)
+echo "Changing default shell to: $fish_path"
+sudo chsh -s $fish_path "$USER"
+echo "Shell changed! Please restart your terminal."
+echo ""
+
 # Install fisher
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
 

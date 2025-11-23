@@ -1,15 +1,21 @@
-# quickstart (outdated)
-Run and wait. Only tested on Ubuntu 22.04. **Warning:** will overwrite without confirmation.
-```bash
-git clone https://github.com/evanarlian/dotfiles.git && cd dotfiles && sudo apt update && ./install.sh
-```
-Optionally, change shell to fish.
-```bash
-sudo chsh -s /usr/bin/fish "$USER"
-```
-Restart your terminal. After changing shell, tmux might still use the old default. Restart solves this.
+# dotfiles
+The intention of this dotfile repo is not to automate the everything, but rather just to link the configs. Tested only on Ubuntu (`main` branch) and macOS (`macos` branch).
 
 # usage
+Clone and apply the config. Note that below step do not do any installation.
+```bash
+git clone -b main https://github.com/evanarlian/dotfiles.git  # ubuntu
+git clone -b macos https://github.com/evanarlian/dotfiles.git  # macos
+cd dotfiles
+./link_config.sh
+```
+
+Optionally, change shell to fish and install extensions. Make sure fish is installed first.
+```bash
+./setup_fish.fish
+```
+
+# usage (broken for now)
 Using `stow` to put symlinks to another places. `--adopt` can be used to resolve conflicts by copying existing content and creating a symlink in its place.
 ```bash
 stow bash  
@@ -25,14 +31,8 @@ tmux a -t _sanity_check
 tmux kill-session -t _sanity_check  # after done looking
 ```
 
-# guidelines
-* TODO:
-  * check on git config (secretservice)
-  * make main branch the core branch, and child branch: ubuntu, macos, ubuntu_vm, etc
-  * the mindset must be shifted, installation must come first, and then config population later
-  * make easily editable repo, such as last-minute config can be applied super fast by editing the repo
-  * convert to idempotent operations, just like declarative approach. Running dotfiles multiple time should not cause issues
-  * change readme, one liner is great, but explanation is good.
-* Some things need to be periodically updated:
-    * fzf (just bump the version from latest in github)
-    * CaskaydiaMonoNerdFont (mono is ligature-free)
+# TODO:
+* make main branch the core branch, and child branch: ubuntu, macos, ubuntu_vm, etc
+* the mindset must be shifted, installation must come first, and then config population later
+* make easily editable repo, such as last-minute config can be applied super fast by editing the repo
+* change readme, one liner is great, but explanation is good.
