@@ -17,7 +17,7 @@ Optional
 ```
 
 # development
-Review before merging between branches and merge manually.
+If needed, review before merging between branches and merge manually.
 ```bash
 git pull origin main --no-ff --no-commit
 ```
