@@ -10,7 +10,14 @@ cd dotfiles
 ./link_config.sh
 ```
 
-Optionally, change shell to fish and install extensions. Make sure fish is installed first.
+Optional
 ```bash
-./setup_fish.fish
+./setup_fish.fish  # install fish ext
+./install_font.sh  # install fonts
+```
+
+# development
+Review before merging between branches and merge manually.
+```bash
+git pull origin main --no-ff --no-commit
 ```
