@@ -8,6 +8,7 @@
     "window.confirmBeforeClose": "keyboardOnly",
     "workbench.startupEditor": "none",
     "workbench.panel.defaultLocation": "bottom",
+    "workbench.activityBar.location": "top",
     "workbench.editor.wrapTabs": true,
     "explorer.compactFolders": false,
     "explorer.confirmDragAndDrop": false,
@@ -82,7 +83,7 @@
         "**/.ruff_cache": true,
         "**/.venv": true
     },
-    "github.copilot.nextEditSuggestions.enabled": true,
     "gitlens.mode.active": "zen",
     "errorLens.enabled": true,
+    "chat.disableAIFeatures": true,
 }
