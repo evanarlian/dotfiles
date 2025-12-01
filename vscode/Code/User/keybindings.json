@@ -26,9 +26,9 @@
         "key": "f6",
         "command": "editor.debug.action.runToCursor"
     },
-        {
+    {
         "key": "backspace",
         "command": "deleteFile",
-        "when": "filesExplorerFocus && foldersViewVisible && !inputFocus"
+        "when": "filesExplorerFocus && foldersViewVisible && !inputFocus && isMac"
     },
 ]

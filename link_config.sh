@@ -25,7 +25,12 @@ link_file "$DOTFILES_DIR/.gitconfig_work" "$HOME/.gitconfig_work"
 link_file "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
 link_file "$DOTFILES_DIR/.condarc" "$HOME/.condarc"
 link_file "$DOTFILES_DIR/fish" "$HOME/.config/fish"
-link_file "$DOTFILES_DIR/vscode/Code" "$HOME/Library/Application Support/Code"
-link_file "$DOTFILES_DIR/.hammerspoon" "$HOME/.hammerspoon"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    link_file "$DOTFILES_DIR/vscode/Code" "$HOME/Library/Application Support/Code"
+    link_file "$DOTFILES_DIR/.hammerspoon" "$HOME/.hammerspoon"
+else
+    link_file "$DOTFILES_DIR/vscode/Code" "$HOME/.config/Code"
+fi
 
 echo "✨ Done!"
