@@ -5,6 +5,11 @@
         "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
     },
     {
+        "key": "cmd+shift+j",
+        "command": "workbench.action.terminal.new",
+        "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
+    },
+    {
         "key": "ctrl+shift+v",
         "command": "-markdown.showPreview",
         "when": "!notebookEditorFocused && editorLangId == 'markdown'"
@@ -25,5 +30,10 @@
     {
         "key": "f6",
         "command": "editor.debug.action.runToCursor"
+    },
+    {
+        "key": "backspace",
+        "command": "deleteFile",
+        "when": "filesExplorerFocus && foldersViewVisible && !inputFocus && isMac"
     },
 ]

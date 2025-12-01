@@ -20,6 +20,11 @@ if functions -q fzf_configure_bindings
     fzf_configure_bindings --variables="ctrl-alt-e"
 end
 
+# brew
+if type -q /opt/homebrew/bin/brew
+    /opt/homebrew/bin/brew shellenv | source
+end
+
 # uv
 if type -q uv
     uv generate-shell-completion fish | source
