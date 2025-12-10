@@ -2,6 +2,7 @@
     // vscode ui
     "editor.fontFamily": "'Cascadia Mono NF', monospace",
     "terminal.integrated.fontFamily": "'Cascadia Mono NF', monospace",
+    "terminal.integrated.suggest.enabled": false,
     "window.titleBarStyle": "custom",
     "window.dialogStyle": "custom",
     "window.zoomLevel": -0.25,
