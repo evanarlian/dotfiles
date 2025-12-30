@@ -89,4 +89,5 @@
     "gitlens.mode.active": "zen",
     "errorLens.enabled": true,
     "chat.disableAIFeatures": true,
+    "task.allowAutomaticTasks": "off",
 }
