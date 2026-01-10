@@ -7,3 +7,5 @@
 	autoSetupRemote = true
 [pull]
 	rebase = false
+[credential]
+	helper = store
