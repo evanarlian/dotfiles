@@ -21,3 +21,7 @@ If needed, review before merging between branches and merge manually.
 ```bash
 git pull origin main --no-ff --no-commit
 ```
+Or you can pick individual file from another branch (assume current branch is `main`)
+```bash
+git restore --source macos -- somefile.json
+```
