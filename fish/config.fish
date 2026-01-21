@@ -41,3 +41,9 @@ end
 if test (uname) = Darwin
     set -gx OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
 end
+
+# opencode
+fish_add_path /home/evan/.opencode/bin
+
+# mise
+~/.local/bin/mise activate fish | source
