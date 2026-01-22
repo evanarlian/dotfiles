@@ -46,4 +46,6 @@ end
 fish_add_path /home/evan/.opencode/bin
 
 # mise
-~/.local/bin/mise activate fish | source
+if type -q mise
+    mise activate fish | source
+end
