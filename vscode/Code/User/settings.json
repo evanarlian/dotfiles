@@ -1,5 +1,6 @@
 {
     // vscode ui
+    "window.title": "${rootName}", // easier alt-tab glance
     "editor.fontFamily": "'Cascadia Mono NF', monospace",
     "terminal.integrated.fontFamily": "'Cascadia Mono NF', monospace",
     "terminal.integrated.suggest.enabled": false,
@@ -75,6 +76,11 @@
     "git.suggestSmartCommit": false,
     "git.autofetch": true,
     "git.openRepositoryInParentFolders": "always",
+    // vscode remote and tailscale requirement
+    "remote.SSH.useLocalServer": false,
+    "remote.SSH.remotePlatform": {
+        "ubuntu-pc": "linux"
+    },
     // misc
     "security.workspace.trust.enabled": false,
     "debug.onTaskErrors": "showErrors",
