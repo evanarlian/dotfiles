@@ -49,3 +49,7 @@ fish_add_path /home/evan/.opencode/bin
 if type -q mise
     mise activate fish | source
 end
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH

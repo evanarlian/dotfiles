@@ -1,5 +1,7 @@
 fish/*
 
+!fish/config.fish
+
 !fish/completions/
 fish/completions/*
 !fish/completions/ca.fish
