@@ -71,6 +71,35 @@
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, TabWidth: 4, AccessModifierOffset: -4, AllowShortBlocksOnASingleLine: Empty, AllowShortFunctionsOnASingleLine: Empty }",
     // rust
     "rust-analyzer.check.command": "clippy",
+    // ts js
+    "[typescript]": {
+        "editor.defaultFormatter": "biomejs.biome",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports.biome": "explicit",
+            "source.fixAll.biome": "explicit"
+        }
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "biomejs.biome",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports.biome": "explicit",
+            "source.fixAll.biome": "explicit"
+        }
+    },
+    "typescript.inlayHints.enumMemberValues.enabled": true,
+    "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+    "typescript.inlayHints.parameterNames.enabled": "all",
+    "typescript.inlayHints.parameterTypes.enabled": true,
+    "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+    "typescript.inlayHints.variableTypes.enabled": true,
+    "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+    "typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName": false,
+    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+    "javascript.inlayHints.parameterNames.enabled": "all",
+    "javascript.inlayHints.parameterTypes.enabled": true,
+    "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+    "javascript.inlayHints.variableTypes.enabled": true,
+    "biome.suggestInstallingGlobally": false,
     // git
     "git.confirmSync": false,
     "git.suggestSmartCommit": false,
@@ -96,4 +125,12 @@
     "errorLens.enabled": true,
     "chat.disableAIFeatures": true,
     "task.allowAutomaticTasks": "off",
+    "json.schemaDownload.trustedDomains": {
+        "https://schemastore.azurewebsites.net/": true,
+        "https://raw.githubusercontent.com/": true,
+        "https://www.schemastore.org/": true,
+        "https://json.schemastore.org/": true,
+        "https://json-schema.org/": true,
+        "https://biomejs.dev": true
+    },
 }
