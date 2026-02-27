@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-[ -z "$CLAUDE_BEEP" ] && exit 0
+[ -f ~/.claude/beep-enabled ] || exit 0
 
 case "$(uname -s)" in
     Darwin)
