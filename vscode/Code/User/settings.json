@@ -121,6 +121,7 @@
         "**/.ruff_cache": true,
         "**/.venv": true
     },
+    "gitlens.plusFeatures.enabled": false,
     "gitlens.mode.active": "zen",
     "errorLens.enabled": true,
     "chat.disableAIFeatures": true,
