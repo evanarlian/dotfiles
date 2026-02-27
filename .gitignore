@@ -15,7 +15,7 @@ fish/conf.d/*
 !fish/functions/
 fish/functions/*
 !fish/functions/ca.fish
-!fish/functions/ccbeep.fish
+!fish/functions/cc_toggle_beep.fish
 !fish/functions/fish_prompt.fish
 !fish/functions/fish_right_prompt.fish
 !fish/functions/reload.fish
