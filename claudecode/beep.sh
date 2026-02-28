@@ -9,8 +9,6 @@ case "$(uname -s)" in
     Linux)
         if command -v paplay &>/dev/null; then
             paplay /usr/share/sounds/freedesktop/stereo/complete.oga 2>/dev/null
-        elif command -v aplay &>/dev/null; then
-            aplay /usr/share/sounds/freedesktop/stereo/complete.oga 2>/dev/null
         fi
         ;;
 esac
