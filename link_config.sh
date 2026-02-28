@@ -25,6 +25,8 @@ link_file "$DOTFILES_DIR/.gitconfig_work" "$HOME/.gitconfig_work"
 link_file "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
 link_file "$DOTFILES_DIR/.condarc" "$HOME/.condarc"
 link_file "$DOTFILES_DIR/fish" "$HOME/.config/fish"
+link_file "$DOTFILES_DIR/claudecode/settings.json" "$HOME/.claude/settings.json"
+link_file "$DOTFILES_DIR/claudecode/beep.sh" "$HOME/.claude/beep.sh"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     link_file "$DOTFILES_DIR/vscode/Code" "$HOME/Library/Application Support/Code"
