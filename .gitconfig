@@ -1,6 +1,7 @@
 [user]
 	name = Evan Arlian
 	email = evanarlian2000@gmail.com
+	signingkey = ~/.ssh/id_ed25519.pub
 [includeIf "gitdir:~/work/"]
     path = ~/.gitconfig_work
 [push]
@@ -9,3 +10,7 @@
 	rebase = false
 [credential]
 	helper = store
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
