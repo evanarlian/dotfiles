@@ -126,4 +126,5 @@
     },
     "errorLens.enabled": true,
     "gitlens.mode.active": "zen",
+    "update.mode": "none",
 }
