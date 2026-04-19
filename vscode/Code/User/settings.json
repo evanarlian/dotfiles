@@ -86,19 +86,14 @@
             "source.fixAll.biome": "explicit"
         }
     },
-    "typescript.inlayHints.enumMemberValues.enabled": true,
-    "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
-    "typescript.inlayHints.parameterNames.enabled": "all",
-    "typescript.inlayHints.parameterTypes.enabled": true,
-    "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
-    "typescript.inlayHints.variableTypes.enabled": true,
-    "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
-    "typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName": false,
-    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
-    "javascript.inlayHints.parameterNames.enabled": "all",
-    "javascript.inlayHints.parameterTypes.enabled": true,
-    "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
-    "javascript.inlayHints.variableTypes.enabled": true,
+    "js/ts.inlayHints.enumMemberValues.enabled": true,
+    "js/ts.inlayHints.functionLikeReturnTypes.enabled": true,
+    "js/ts.inlayHints.parameterNames.enabled": "all",
+    "js/ts.inlayHints.parameterTypes.enabled": true,
+    "js/ts.inlayHints.propertyDeclarationTypes.enabled": true,
+    "js/ts.inlayHints.variableTypes.enabled": true,
+    "js/ts.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+    "js/ts.inlayHints.variableTypes.suppressWhenTypeMatchesName": false,
     "biome.suggestInstallingGlobally": false,
     // git
     "git.confirmSync": false,
@@ -107,12 +102,13 @@
     "git.openRepositoryInParentFolders": "always",
     // vscode remote and tailscale requirement
     "remote.SSH.useLocalServer": false,
-    "remote.SSH.remotePlatform": {
-        "ubuntu-pc": "linux"
-    },
+    "remote.autoForwardPorts": false,
     // misc
+    "task.allowAutomaticTasks": "off",
     "security.workspace.trust.enabled": false,
     "debug.onTaskErrors": "showErrors",
+    "gitlens.plusFeatures.enabled": false,
+    "chat.disableAIFeatures": true,
     "files.exclude": {
         "**/__pycache__": true,
         "**/.git": true,
@@ -121,11 +117,6 @@
         "**/.ruff_cache": true,
         "**/.venv": true
     },
-    "gitlens.plusFeatures.enabled": false,
-    "gitlens.mode.active": "zen",
-    "errorLens.enabled": true,
-    "chat.disableAIFeatures": true,
-    "task.allowAutomaticTasks": "off",
     "json.schemaDownload.trustedDomains": {
         "https://schemastore.azurewebsites.net/": true,
         "https://raw.githubusercontent.com/": true,
@@ -134,4 +125,6 @@
         "https://json-schema.org/": true,
         "https://biomejs.dev": true
     },
+    "errorLens.enabled": true,
+    "gitlens.mode.active": "zen",
 }
