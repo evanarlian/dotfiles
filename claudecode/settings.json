@@ -35,18 +35,18 @@
           }
         ]
       }
+    ],
+    "Elicitation": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/beep.sh",
+            "async": true
+          }
+        ]
+      }
     ]
-  },
-  "Elicitation": [
-    {
-      "matcher": "",
-      "hooks": [
-        {
-          "type": "command",
-          "command": "~/.claude/beep.sh",
-          "async": true
-        }
-      ]
-    }
-  ]
+  }
 }
