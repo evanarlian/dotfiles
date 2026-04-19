@@ -59,6 +59,9 @@ done
 # nvtop (GPU monitoring)
 sudo_install_apt nvtop
 
+# GitHub CLI
+install_if_missing gh "(curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && echo 'deb [arch=\$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main' | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null && sudo apt-get update -qq && sudo apt-get install -y gh)"
+
 # uv (Python package manager)
 install_if_missing uv "curl -LsSf https://astral.sh/uv/install.sh | sh"
 
