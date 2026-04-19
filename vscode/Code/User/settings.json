@@ -106,7 +106,6 @@
     // misc
     "task.allowAutomaticTasks": "off",
     "security.workspace.trust.enabled": false,
-    "debug.onTaskErrors": "showErrors",
     "gitlens.plusFeatures.enabled": false,
     "chat.disableAIFeatures": true,
     "files.exclude": {
