@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+# run from the internet:
+# curl -fsSL https://raw.githubusercontent.com/evanarlian/dotfiles/macos/vmprep.sh | bash
+
 set -euo pipefail
 
 install_if_missing() {
