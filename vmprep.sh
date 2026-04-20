@@ -181,8 +181,19 @@ cat > ~/.gitconfig << 'GIT_EOF'
 	format = ssh
 GIT_EOF
 
-# === BASH ALIASES ===
-echo "[config] adding cc alias to ~/.bashrc..."
+# === BASH ALIASES & SSH AGENT FIX ===
+echo "[config] adding bashrc snippets..."
+# Stable symlink for SSH agent so old tmux panes survive reattach.
+# Without this, old panes point to a dead forwarded socket and hang.
+if ! grep -q 'ssh/auth_sock' ~/.bashrc 2>/dev/null; then
+    cat >> ~/.bashrc << 'BASHRC_SSH'
+# Keep a stable symlink so tmux panes survive SSH reattach
+if [ -n "$SSH_AUTH_SOCK" ] && [ "$SSH_AUTH_SOCK" != "$HOME/.ssh/auth_sock" ]; then
+    ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/auth_sock"
+    export SSH_AUTH_SOCK="$HOME/.ssh/auth_sock"
+fi
+BASHRC_SSH
+fi
 if ! grep -q 'alias cc=' ~/.bashrc 2>/dev/null; then
     echo 'alias cc="claude --dangerously-skip-permissions"' >> ~/.bashrc
 fi
