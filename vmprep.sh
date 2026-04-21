@@ -59,8 +59,12 @@ for pkg in make tmux htop git tree curl wget jq unzip; do
     sudo_install_apt "$pkg"
 done
 
-# nvtop (GPU monitoring)
-sudo_install_apt nvtop
+# nvtop (GPU monitoring — skip if no GPU)
+if command -v nvidia-smi &>/dev/null; then
+    sudo_install_apt nvtop
+else
+    echo "[skip] nvtop (no GPU detected)"
+fi
 
 # GitHub CLI
 # https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian
@@ -100,20 +104,24 @@ else
     echo "[skip] $USER already in docker group"
 fi
 
-# NVIDIA Container Toolkit (GPU access inside Docker containers)
-if dpkg -s nvidia-container-toolkit &>/dev/null; then
-    echo "[skip] nvidia-container-toolkit already installed"
+# NVIDIA Container Toolkit (GPU access inside Docker containers — skip if no GPU)
+if command -v nvidia-smi &>/dev/null; then
+    if dpkg -s nvidia-container-toolkit &>/dev/null; then
+        echo "[skip] nvidia-container-toolkit already installed"
+    else
+        echo "[install] nvidia-container-toolkit..."
+        curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
+            | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+        curl -fsSL https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
+            | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \
+            | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list > /dev/null
+        sudo apt-get update -qq
+        sudo apt-get install -y nvidia-container-toolkit
+        sudo nvidia-ctk runtime configure --runtime=docker
+        sudo systemctl restart docker
+    fi
 else
-    echo "[install] nvidia-container-toolkit..."
-    curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
-        | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
-    curl -fsSL https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
-        | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \
-        | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list > /dev/null
-    sudo apt-get update -qq
-    sudo apt-get install -y nvidia-container-toolkit
-    sudo nvidia-ctk runtime configure --runtime=docker
-    sudo systemctl restart docker
+    echo "[skip] nvidia-container-toolkit (no GPU detected)"
 fi
 
 # === TMUX CONFIG ===
