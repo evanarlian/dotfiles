@@ -84,9 +84,12 @@ install_if_missing uv "curl -LsSf https://astral.sh/uv/install.sh | sh"
 # Claude Code
 install_if_missing claude "curl -fsSL https://claude.ai/install.sh | bash"
 
+# Go (official tarball — apt version is usually outdated)
+install_if_missing go "curl -fsSL https://go.dev/dl/go1.24.2.linux-amd64.tar.gz -o /tmp/go.tar.gz && sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf /tmp/go.tar.gz && rm /tmp/go.tar.gz"
+
 # Fresh installers drop binaries in ~/.local/bin and update ~/.bashrc, but that
 # PATH change doesn't apply to the currently-running script — add it explicitly.
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:/usr/local/go/bin:$PATH"
 
 # Claude plugin marketplace (self-gating: no-op if already added)
 claude plugin marketplace add getboon/boon-plugins
