@@ -68,15 +68,19 @@ fi
 
 # GitHub CLI
 # https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian
-(type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
-	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
-	&& out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-	&& cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
-	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
-	&& sudo mkdir -p -m 755 /etc/apt/sources.list.d \
-	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-    && sudo apt update
-sudo_install_apt gh
+if ! dpkg -s gh &>/dev/null; then
+    (type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
+        && sudo mkdir -p -m 755 /etc/apt/keyrings \
+        && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+        && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+        && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+        && sudo mkdir -p -m 755 /etc/apt/sources.list.d \
+        && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+        && sudo apt update
+    sudo apt-get install -y gh
+else
+    echo "[skip] gh already installed"
+fi
 
 # uv (Python package manager)
 install_if_missing uv "curl -LsSf https://astral.sh/uv/install.sh | sh"
@@ -87,8 +91,8 @@ install_if_missing claude "curl -fsSL https://claude.ai/install.sh | bash"
 # Go (official tarball — apt version is usually outdated)
 install_if_missing go "curl -fsSL https://go.dev/dl/go1.24.2.linux-amd64.tar.gz -o /tmp/go.tar.gz && sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf /tmp/go.tar.gz && rm /tmp/go.tar.gz"
 
-# Fresh installers drop binaries in ~/.local/bin and update ~/.bashrc, but that
-# PATH change doesn't apply to the currently-running script — add it explicitly.
+# Fresh installers may drop binaries in ~/.local/bin or /usr/local/go/bin;
+# the PATH updates below make them available in the current script run.
 export PATH="$HOME/.local/bin:/usr/local/go/bin:$PATH"
 
 # Claude plugin marketplace (self-gating: no-op if already added)
@@ -114,7 +118,7 @@ if command -v nvidia-smi &>/dev/null; then
     else
         echo "[install] nvidia-container-toolkit..."
         curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
-            | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+            | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
         curl -fsSL https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
             | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \
             | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list > /dev/null
@@ -207,6 +211,12 @@ BASHRC_SSH
 fi
 if ! grep -q 'alias cc=' ~/.bashrc 2>/dev/null; then
     echo 'alias cc="claude --dangerously-skip-permissions"' >> ~/.bashrc
+fi
+if ! grep -q '\.local/bin' ~/.bashrc 2>/dev/null; then
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+fi
+if ! grep -q '/usr/local/go/bin' ~/.bashrc 2>/dev/null; then
+    echo 'export PATH="/usr/local/go/bin:$PATH"' >> ~/.bashrc
 fi
 
 echo ""
