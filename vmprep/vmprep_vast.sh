@@ -118,6 +118,12 @@ claude plugin marketplace add getboon/boon-plugins
 touch ~/.no_auto_tmux
 # Remove vast.ai's auto venv activation from bashrc
 sed -i '/\/venv\/.*\/bin\/activate/d' ~/.bashrc
+# Remove vast.ai's forced cd to /workspace
+sed -i '/^cd ${WORKSPACE}/d' ~/.bashrc
+# sshd inherits stale PWD=/workspace from the container entrypoint; resync it
+if ! grep -q 'PWD=.*pwd' ~/.bashrc 2>/dev/null; then
+    echo 'export PWD="$(/bin/pwd -P)"' >> ~/.bashrc
+fi
 
 # === CONDARC ===
 # Disable conda auto-activate base (vast.ai images often have conda pre-installed)
