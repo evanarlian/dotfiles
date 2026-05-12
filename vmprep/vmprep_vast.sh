@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # run from the internet:
-# curl -fsSL https://raw.githubusercontent.com/evanarlian/dotfiles/macos/vmprep/vmprep_gcp.sh | bash
+# curl -fsSL https://raw.githubusercontent.com/evanarlian/dotfiles/macos/vmprep/vmprep_vast.sh | bash
 
 set -euo pipefail
 
@@ -27,7 +27,7 @@ sudo_install_apt() {
     fi
 }
 
-echo "=== VM Prep ==="
+echo "=== VM Prep (vast.ai) ==="
 
 # Pre-accept GitHub SSH host key so git/ssh never prompts
 mkdir -p ~/.ssh
@@ -98,38 +98,16 @@ export PATH="$HOME/.local/bin:/usr/local/go/bin:$PATH"
 # Claude plugin marketplace (self-gating: no-op if already added)
 claude plugin marketplace add getboon/boon-plugins
 
-# Docker (official convenience script)
-install_if_missing docker "curl -fsSL https://get.docker.com | sh"
+# === VAST.AI CONFIG ===
+# Disable vast.ai's auto-tmux which breaks SSH agent forwarding
+touch ~/.no_auto_tmux
 
-# Add current user to docker group so `docker` works without sudo.
-# Check /etc/group (persistent state), not `id` (shell-snapshot state) —
-# otherwise a prior run that happened in this same shell looks "missing".
-if ! getent group docker | grep -qw "$USER"; then
-    echo "[config] adding $USER to docker group..."
-    sudo usermod -aG docker "$USER"
-else
-    echo "[skip] $USER already in docker group"
-fi
-
-# NVIDIA Container Toolkit (GPU access inside Docker containers — skip if no GPU)
-if command -v nvidia-smi &>/dev/null; then
-    if dpkg -s nvidia-container-toolkit &>/dev/null; then
-        echo "[skip] nvidia-container-toolkit already installed"
-    else
-        echo "[install] nvidia-container-toolkit..."
-        curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
-            | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
-        curl -fsSL https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
-            | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \
-            | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list > /dev/null
-        sudo apt-get update -qq
-        sudo apt-get install -y nvidia-container-toolkit
-        sudo nvidia-ctk runtime configure --runtime=docker
-        sudo systemctl restart docker
-    fi
-else
-    echo "[skip] nvidia-container-toolkit (no GPU detected)"
-fi
+# === CONDARC ===
+# Disable conda auto-activate base (vast.ai images often have conda pre-installed)
+echo "[config] writing ~/.condarc..."
+cat > ~/.condarc << 'CONDARC_EOF'
+auto_activate_base: false
+CONDARC_EOF
 
 # === TMUX CONFIG ===
 echo "[config] writing ~/.tmux.conf..."
