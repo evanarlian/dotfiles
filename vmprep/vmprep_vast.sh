@@ -205,7 +205,8 @@ fi
 BASHRC_SSH
 fi
 if ! grep -q 'alias cc=' ~/.bashrc 2>/dev/null; then
-    echo 'alias cc="claude --dangerously-skip-permissions"' >> ~/.bashrc
+    # auto mode instead of --dangerously-skip-permissions because the latter is blocked as root
+    echo 'alias cc="claude --permission-mode auto"' >> ~/.bashrc
 fi
 if ! grep -q '\.local/bin' ~/.bashrc 2>/dev/null; then
     echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
