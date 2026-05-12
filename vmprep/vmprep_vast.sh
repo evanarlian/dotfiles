@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Only tested on vast.ai's "NVIDIA CUDA" docker image template.
+#
 # run from the internet:
 # curl -fsSL https://raw.githubusercontent.com/evanarlian/dotfiles/macos/vmprep/vmprep_vast.sh | bash
 
@@ -82,6 +84,19 @@ else
     echo "[skip] gh already installed"
 fi
 
+# Google Cloud CLI (gcloud, gsutil, bq)
+# https://cloud.google.com/sdk/docs/install#deb
+if ! dpkg -s google-cloud-cli &>/dev/null; then
+    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg \
+        | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/cloud.google.gpg
+    echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
+        | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list > /dev/null
+    sudo apt-get update -qq
+    sudo apt-get install -y google-cloud-cli
+else
+    echo "[skip] google-cloud-cli already installed"
+fi
+
 # uv (Python package manager)
 install_if_missing uv "curl -LsSf https://astral.sh/uv/install.sh | sh"
 
@@ -101,6 +116,8 @@ claude plugin marketplace add getboon/boon-plugins
 # === VAST.AI CONFIG ===
 # Disable vast.ai's auto-tmux which breaks SSH agent forwarding
 touch ~/.no_auto_tmux
+# Remove vast.ai's auto venv activation from bashrc
+sed -i '/\/venv\/.*\/bin\/activate/d' ~/.bashrc
 
 # === CONDARC ===
 # Disable conda auto-activate base (vast.ai images often have conda pre-installed)
@@ -203,5 +220,6 @@ echo ""
 echo ">>> TODO:"
 echo ">>>   1) Login to Claude:  claude  (open with VS Code terminal for browser auto-open)"
 echo ">>>   2) Login to GitHub:  gh auth login"
-echo ">>>   3) In VS Code, open the Extensions panel and click 'Install in SSH: <host>'"
-echo ">>>   4) Log-out and log-in again to apply changes"
+echo ">>>   3) Login to GCP:     gcloud auth login"
+echo ">>>   4) In VS Code, open the Extensions panel and click 'Install in SSH: <host>'"
+echo ">>>   5) Log-out and log-in again to apply changes"
