@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # run from the internet:
-# curl -fsSL https://raw.githubusercontent.com/evanarlian/dotfiles/macos/vmprep.sh | bash
+# curl -fsSL https://raw.githubusercontent.com/evanarlian/dotfiles/macos/vmprep/vmprep_gcp.sh | bash
 
 set -euo pipefail
 
