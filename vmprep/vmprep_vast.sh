@@ -199,17 +199,79 @@ GIT_EOF
 
 # === BASH ALIASES & SSH AGENT FIX ===
 echo "[config] adding bashrc snippets..."
-# Stable symlink for SSH agent so old tmux panes survive reattach.
-# Without this, old panes point to a dead forwarded socket and hang.
-if ! grep -q 'ssh/auth_sock' ~/.bashrc 2>/dev/null; then
-    cat >> ~/.bashrc << 'BASHRC_SSH'
-# Keep a stable symlink so tmux panes survive SSH reattach
-if [ -n "$SSH_AUTH_SOCK" ] && [ "$SSH_AUTH_SOCK" != "$HOME/.ssh/auth_sock" ]; then
-    ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/auth_sock"
-    export SSH_AUTH_SOCK="$HOME/.ssh/auth_sock"
+# Stable symlink for SSH agent so old tmux panes survive reattach AND
+# self-heal across SSH reconnects (including VS Code Remote-SSH, which
+# adds a wrapper socket layer).
+# Use BEGIN/END markers so we can re-install idempotently.
+SSH_SOCK_BEGIN='# >>> ssh-agent-socket-mgmt (managed by vmprep) >>>'
+SSH_SOCK_END='# <<< ssh-agent-socket-mgmt (managed by vmprep) <<<'
+
+# Strip any previous version of the block (old or new) before re-appending.
+if grep -qF "$SSH_SOCK_BEGIN" ~/.bashrc 2>/dev/null; then
+    sed -i "\|$SSH_SOCK_BEGIN|,\|$SSH_SOCK_END|d" ~/.bashrc
 fi
+# Also strip the legacy unmarked snippet from an older vmprep run.
+if grep -q 'ssh/auth_sock' ~/.bashrc 2>/dev/null; then
+    sed -i '/# Keep a stable symlink so tmux panes survive SSH reattach/,/^fi$/d' ~/.bashrc
+fi
+
+cat >> ~/.bashrc << BASHRC_SSH
+$SSH_SOCK_BEGIN
+# Stable symlink so tmux panes survive SSH reconnect (incl. VS Code Remote-SSH,
+# which adds /tmp/vscode-ssh-auth-sock-XXXX -> /tmp/ssh-XXX/agent.NNN wrappers).
+# Refreshes on shell start AND every prompt, so pre-existing tmux panes
+# self-heal as soon as any other SSH session has a live forwarded socket.
+__refresh_ssh_auth_sock() {
+    local link="\$HOME/.ssh/auth_sock"
+
+    # Fast path: [ -S ] follows symlinks via stat(2) in-kernel, so a single
+    # syscall (no fork, ~12us) tells us whether the whole chain resolves
+    # to a live socket. This runs on every prompt — must stay cheap.
+    if [ -S "\$link" ]; then
+        export SSH_AUTH_SOCK="\$link"
+        return 0
+    fi
+
+    # Slow path runs only when the link is dangling. This shell may have a
+    # fresh raw socket in its env from sshd/VS Code — adopt it.
+    if [ -n "\$SSH_AUTH_SOCK" ] \\
+        && [ "\$SSH_AUTH_SOCK" != "\$link" ] \\
+        && [ -S "\$SSH_AUTH_SOCK" ]; then
+        ln -sfn "\$SSH_AUTH_SOCK" "\$link"
+        export SSH_AUTH_SOCK="\$link"
+        return 0
+    fi
+
+    # Last resort: scan /tmp for the newest live socket owned by this user.
+    # Prefer vscode wrappers (that's what vscode terminals were handed),
+    # then plain sshd-forwarded sockets. [ -S ] on each candidate follows
+    # the wrapper -> agent chain in one syscall, so a dangling wrapper is
+    # automatically rejected.
+    local s
+    for s in \$(ls -1t /tmp/vscode-ssh-auth-sock-* /tmp/ssh-*/agent.* 2>/dev/null); do
+        if [ -S "\$s" ] && [ -O "\$s" ]; then
+            ln -sfn "\$s" "\$link"
+            export SSH_AUTH_SOCK="\$link"
+            return 0
+        fi
+    done
+
+    # Nothing live found — point at the link anyway so future heals are seen.
+    export SSH_AUTH_SOCK="\$link"
+    return 1
+}
+
+__refresh_ssh_auth_sock
+
+# Run on every prompt so existing tmux panes notice when another session
+# brings a live socket online. Idempotent — \$PROMPT_COMMAND is only
+# augmented if our hook isn't already in it.
+case "\$PROMPT_COMMAND" in
+    *__refresh_ssh_auth_sock*) ;;
+    *) PROMPT_COMMAND="__refresh_ssh_auth_sock\${PROMPT_COMMAND:+; \$PROMPT_COMMAND}" ;;
+esac
+$SSH_SOCK_END
 BASHRC_SSH
-fi
 if ! grep -q 'alias cc=' ~/.bashrc 2>/dev/null; then
     # auto mode instead of --dangerously-skip-permissions because the latter is blocked as root
     echo 'alias cc="claude --permission-mode auto"' >> ~/.bashrc
