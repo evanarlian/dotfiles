@@ -237,26 +237,47 @@ fi
 
 cat >> ~/.bashrc << BASHRC_SSH
 $SSH_SOCK_BEGIN
-# Stable symlink so tmux panes survive SSH reconnect (incl. VS Code Remote-SSH,
-# which adds /tmp/vscode-ssh-auth-sock-XXXX -> /tmp/ssh-XXX/agent.NNN wrappers).
-# Refreshes on shell start AND every prompt, so pre-existing tmux panes
-# self-heal as soon as any other SSH session has a live forwarded socket.
+# Stable symlink so tmux panes survive SSH reconnect, and concurrent SSH
+# sessions don't poison each other when one dies first. Re-checks liveness
+# on every prompt: [ -S ] alone is not enough — orphaned /tmp/ssh-*/agent.N
+# linger as socket files after their sshd dies, and VS Code's
+# --enable-remote-auto-shutdown keeps an sshd alive past its real disconnect
+# with a half-dead agent socket. Both pass [ -S ], both hang ssh-add. Hence
+# the explicit probe.
+__sock_is_live() {
+    local s="\$1"
+    local pid="\${s##*.}"
+    # PID prefilter: /tmp/ssh-XXX/agent.NNNN's NNNN is the sshd child PID.
+    # Gone or comm != sshd ⇒ socket dead. ~50us, no fork. Non-PID-named
+    # candidates (e.g. vscode wrappers) skip this and probe directly.
+    case "\$pid" in
+        ''|*[!0-9]*) ;;
+        *)
+            [ -d "/proc/\$pid" ] || return 1
+            [ "\$(< /proc/\$pid/comm 2>/dev/null)" = sshd ] || return 1
+            ;;
+    esac
+    # Definitive probe. ~5ms typical; ~200ms on timeout in the zombie case.
+    SSH_AUTH_SOCK="\$s" timeout 0.2 ssh-add -l >/dev/null 2>&1
+    case \$? in 0|1) return 0;; *) return 1;; esac
+}
+
 __refresh_ssh_auth_sock() {
     local link="\$HOME/.ssh/auth_sock"
 
-    # Fast path: [ -S ] follows symlinks via stat(2) in-kernel, so a single
-    # syscall (no fork, ~12us) tells us whether the whole chain resolves
-    # to a live socket. This runs on every prompt — must stay cheap.
-    if [ -S "\$link" ]; then
+    # Fast path: link is sticky while live. A new session arriving while
+    # the link works keeps using it, so transient sessions can't hijack it.
+    if [ -S "\$link" ] && __sock_is_live "\$link"; then
         export SSH_AUTH_SOCK="\$link"
         return 0
     fi
 
-    # Slow path runs only when the link is dangling. This shell may have a
-    # fresh raw socket in its env from sshd/VS Code — adopt it.
+    # Slow path: link is bad. This shell may have a fresh raw socket in
+    # its env from sshd/VS Code — adopt it if it actually responds.
     if [ -n "\$SSH_AUTH_SOCK" ] \\
         && [ "\$SSH_AUTH_SOCK" != "\$link" ] \\
-        && [ -S "\$SSH_AUTH_SOCK" ]; then
+        && [ -S "\$SSH_AUTH_SOCK" ] \\
+        && __sock_is_live "\$SSH_AUTH_SOCK"; then
         ln -sfn "\$SSH_AUTH_SOCK" "\$link"
         export SSH_AUTH_SOCK="\$link"
         return 0
@@ -264,12 +285,10 @@ __refresh_ssh_auth_sock() {
 
     # Last resort: scan /tmp for the newest live socket owned by this user.
     # Prefer vscode wrappers (that's what vscode terminals were handed),
-    # then plain sshd-forwarded sockets. [ -S ] on each candidate follows
-    # the wrapper -> agent chain in one syscall, so a dangling wrapper is
-    # automatically rejected.
+    # then plain sshd-forwarded sockets. __sock_is_live skips dead ones.
     local s
     for s in \$(ls -1t /tmp/vscode-ssh-auth-sock-* /tmp/ssh-*/agent.* 2>/dev/null); do
-        if [ -S "\$s" ] && [ -O "\$s" ]; then
+        if [ -S "\$s" ] && [ -O "\$s" ] && __sock_is_live "\$s"; then
             ln -sfn "\$s" "\$link"
             export SSH_AUTH_SOCK="\$link"
             return 0
