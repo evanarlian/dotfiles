@@ -29,7 +29,7 @@ sudo_install_apt() {
     fi
 }
 
-echo "=== VM Prep ==="
+echo "=== VM Prep (gcp) ==="
 
 # Pre-accept GitHub SSH host key so git/ssh never prompts
 mkdir -p ~/.ssh
