@@ -252,7 +252,10 @@ __sock_is_live() {
         ''|*[!0-9]*) ;;
         *)
             [ -d "/proc/\$pid" ] || return 1
-            [ "\$(< /proc/\$pid/comm 2>/dev/null)" = sshd ] || return 1
+            # NOTE: no '2>/dev/null' on \$(< file) — that combination breaks
+            # bash's no-fork read form and silently yields empty. The -d
+            # check above already guards against the file not existing.
+            [ "\$(< /proc/\$pid/comm)" = sshd ] || return 1
             ;;
     esac
     # Definitive probe. ~5ms typical; ~200ms on timeout in the zombie case.
