@@ -90,15 +90,30 @@ install_if_missing uv "curl -LsSf https://astral.sh/uv/install.sh | sh"
 # Claude Code
 install_if_missing claude "curl -fsSL https://claude.ai/install.sh | bash"
 
-# Go (official tarball — apt version is usually outdated)
-install_if_missing go "curl -fsSL https://go.dev/dl/go1.24.2.linux-amd64.tar.gz -o /tmp/go.tar.gz && sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf /tmp/go.tar.gz && rm /tmp/go.tar.gz"
+# mise — manages node, ruby, go runtimes
+install_if_missing mise "curl https://mise.run | sh"
 
-# Fresh installers may drop binaries in ~/.local/bin or /usr/local/go/bin;
-# the PATH updates below make them available in the current script run.
-export PATH="$HOME/.local/bin:/usr/local/go/bin:$PATH"
+# Fresh installers drop binaries in ~/.local/bin; mise shims at
+# ~/.local/share/mise/shims provide npm/go/gem from the pinned runtimes.
+export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+
+# Pin company runtime versions
+mise use -g node@24.13.1 ruby@3.3.6 go@1.25.0
+
+# Language servers
+install_if_missing pyright "npm i -g pyright"
+install_if_missing typescript-language-server "npm i -g typescript-language-server typescript"
+install_if_missing gopls "go install golang.org/x/tools/gopls@latest"
+install_if_missing ruby-lsp "gem install ruby-lsp"
 
 # Claude plugin marketplace (self-gating: no-op if already added)
 claude plugin marketplace add getboon/boon-plugins
+claude plugin marketplace update claude-plugins-official
+claude plugin install pyright-lsp
+claude plugin install typescript-lsp
+claude plugin install gopls-lsp
+claude plugin install ruby-lsp
+
 
 # Docker (official convenience script)
 install_if_missing docker "curl -fsSL https://get.docker.com | sh"
@@ -279,8 +294,8 @@ fi
 if ! grep -q '\.local/bin' ~/.bashrc 2>/dev/null; then
     echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 fi
-if ! grep -q '/usr/local/go/bin' ~/.bashrc 2>/dev/null; then
-    echo 'export PATH="/usr/local/go/bin:$PATH"' >> ~/.bashrc
+if ! grep -q 'mise activate' ~/.bashrc 2>/dev/null; then
+    echo 'eval "$(mise activate bash)"' >> ~/.bashrc
 fi
 
 echo ""
