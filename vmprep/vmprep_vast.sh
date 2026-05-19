@@ -44,7 +44,7 @@ if [ ! -f ~/.ssh/id_ed25519.pub ]; then
         echo "[config] wrote ~/.ssh/id_ed25519.pub from SSH agent"
     else
         rm -f ~/.ssh/id_ed25519.pub
-        echo "[warn] no ed25519 key found in SSH agent — commit signing will not work"
+        echo "[warn] no ed25519 key found in SSH agent, commit signing will not work. Run `ssh-add` from host first to add ssh key."
     fi
 else
     echo "[skip] ~/.ssh/id_ed25519.pub already exists"
@@ -109,6 +109,9 @@ install_if_missing mise "curl https://mise.run | sh"
 # Fresh installers drop binaries in ~/.local/bin; mise shims at
 # ~/.local/share/mise/shims provide npm/go/gem from the pinned runtimes.
 export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+
+# Precompiled Ruby — default compile-from-source needs gcc + libssl-dev etc.
+mise settings ruby.compile=false
 
 # Pin company runtime versions
 mise use -g node@24.13.1 ruby@3.3.6 go@1.25.0
