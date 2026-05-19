@@ -111,6 +111,7 @@ install_if_missing ruby-lsp "gem install ruby-lsp"
 
 # Claude plugin marketplace (self-gating: no-op if already added)
 claude plugin marketplace add getboon/boon-plugins
+claude plugin marketplace add anthropics/claude-plugins-official
 claude plugin marketplace update claude-plugins-official
 claude plugin install pyright-lsp
 claude plugin install typescript-lsp
