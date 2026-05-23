@@ -67,8 +67,6 @@
     "notebook.codeActionsOnSave": {
         "notebook.source.organizeImports": "explicit"
     },
-    // cpp
-    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, TabWidth: 4, AccessModifierOffset: -4, AllowShortBlocksOnASingleLine: Empty, AllowShortFunctionsOnASingleLine: Empty }",
     // rust
     "rust-analyzer.check.command": "clippy",
     // ts js
@@ -127,4 +125,7 @@
     "errorLens.enabled": true,
     "gitlens.mode.active": "zen",
     "update.mode": "none",
+    "remote.SSH.remotePlatform": {
+        "vast-wall": "linux"
+    },
 }
