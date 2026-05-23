@@ -104,19 +104,19 @@ mise settings ruby.compile=false
 mise use -g node@24.13.1 ruby@3.3.6 go@1.25.0
 
 # Language servers
-install_if_missing pyright "npm i -g pyright"
-install_if_missing typescript-language-server "npm i -g typescript-language-server typescript"
-install_if_missing gopls "go install golang.org/x/tools/gopls@latest"
-install_if_missing ruby-lsp "gem install ruby-lsp"
+# install_if_missing pyright "npm i -g pyright"
+# install_if_missing typescript-language-server "npm i -g typescript-language-server typescript"
+# install_if_missing gopls "go install golang.org/x/tools/gopls@latest"
+# install_if_missing ruby-lsp "gem install ruby-lsp"
 
 # Claude plugin marketplace (self-gating: no-op if already added)
 claude plugin marketplace add getboon/boon-plugins
 claude plugin marketplace add anthropics/claude-plugins-official
 claude plugin marketplace update claude-plugins-official
-claude plugin install pyright-lsp
-claude plugin install typescript-lsp
-claude plugin install gopls-lsp
-claude plugin install ruby-lsp
+# claude plugin install pyright-lsp
+# claude plugin install typescript-lsp
+# claude plugin install gopls-lsp
+# claude plugin install ruby-lsp
 
 
 # Docker (official convenience script)
@@ -219,6 +219,7 @@ GIT_EOF
 
 # === BASH ALIASES & SSH AGENT FIX ===
 echo "[config] adding bashrc snippets..."
+if ! grep -q 'ssh-agent-socket-mgmt (managed by vmprep)' ~/.bashrc 2>/dev/null; then
 cat >> ~/.bashrc << 'BASHRC_SSH'
 # ssh-agent-socket-mgmt (managed by vmprep)
 #
@@ -259,6 +260,7 @@ sshsock() {
     fi
 }
 BASHRC_SSH
+fi
 if ! grep -q 'alias cc=' ~/.bashrc 2>/dev/null; then
     echo 'alias cc="claude --dangerously-skip-permissions"' >> ~/.bashrc
 fi

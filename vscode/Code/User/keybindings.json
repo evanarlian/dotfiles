@@ -128,5 +128,10 @@
         "key": "ctrl+shift+v",
         "command": "-markdown.showPreview",
         "when": "!notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/"
+    },
+    {
+        "key": "ctrl+shift+v",
+        "command": "-markdown.togglePreview",
+        "when": "!notebookEditorFocused && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/"
     }
 ]
