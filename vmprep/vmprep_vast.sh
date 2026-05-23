@@ -217,6 +217,7 @@ GIT_EOF
 
 # === BASH ALIASES & SSH AGENT FIX ===
 echo "[config] adding bashrc snippets..."
+if ! grep -q 'ssh-agent-socket-mgmt (managed by vmprep)' ~/.bashrc 2>/dev/null; then
 cat >> ~/.bashrc << 'BASHRC_SSH'
 # ssh-agent-socket-mgmt (managed by vmprep)
 #
@@ -257,6 +258,7 @@ sshsock() {
     fi
 }
 BASHRC_SSH
+fi
 if ! grep -q 'alias cc=' ~/.bashrc 2>/dev/null; then
     # auto mode instead of --dangerously-skip-permissions because the latter is blocked as root
     echo 'alias cc="claude --permission-mode auto"' >> ~/.bashrc
