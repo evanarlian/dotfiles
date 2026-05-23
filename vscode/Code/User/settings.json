@@ -126,6 +126,6 @@
     "gitlens.mode.active": "zen",
     "update.mode": "none",
     "remote.SSH.remotePlatform": {
-        "vast-wall": "linux"
+        "*": "linux"
     },
 }
