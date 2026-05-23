@@ -1,3 +1,76 @@
+# === Secrets & credentials (first line of defense) ===
+
+# SSH keys
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+id_ecdsa
+id_ecdsa.*
+id_dsa
+id_dsa.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# GPG
+secring.gpg
+*.gpg
+*.asc
+
+# Environment & config secrets
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Cloud provider credentials
+credentials.json
+service-account*.json
+*-credentials.json
+*-service-account*.json
+.gcp-credentials.json
+.boto
+
+# AWS
+.aws/credentials
+.aws/config
+
+# Tokens & auth files
+.netrc
+.npmrc
+.pypirc
+.docker/config.json
+.kube/config
+.terraform.tfvars
+*.tfvars
+
+# Certificates
+*.cert
+*.crt
+*.der
+
+# Keystore / secrets managers
+*.keystore
+*.jks
+vault.yml
+vault.yaml
+*-secret.yml
+*-secret.yaml
+
+# Password / secret files
+*password*
+*secret*
+*token*
+!**/token*.go
+!**/token*.py
+!**/token*.ts
+!**/token*.js
+!**/token*.rs
+
+# =========================================
+
 fish/*
 
 !fish/config.fish
