@@ -93,7 +93,7 @@ if command -v apt-get &>/dev/null; then
 fi
 
 # Core tools via apt
-for pkg in build-essential tmux htop git tree curl wget jq unzip qpdf; do
+for pkg in build-essential tmux htop git tree curl wget jq unzip qpdf mupdf-tools poppler-utils webp; do
     sudo_install_apt "$pkg"
 done
 
