@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# Only tested on vast.ai's "NVIDIA CUDA" docker image template.
+# Only tested on Hyperstack Ubuntu 24.04 GPU VM. A lot of config to offload big files to /ephemeral disk.
 #
 # run from the internet:
-# curl -fsSL https://raw.githubusercontent.com/evanarlian/dotfiles/macos/vmprep/vmprep_vast.sh | bash
+# curl -fsSL https://raw.githubusercontent.com/evanarlian/dotfiles/macos/vmprep/vmprep_hyperstack_eph.sh | bash
 
 set -euo pipefail
 
@@ -29,7 +29,43 @@ sudo_install_apt() {
     fi
 }
 
-echo "=== VM Prep (vast.ai) ==="
+echo "=== VM Prep (gcp) ==="
+
+# === EPHEMERAL DISK REDIRECTS ===
+# Keep big, re-creatable stuff (caches, runtimes, model downloads) off the
+# small root disk. Everything here survives `uv sync` / `mise install` /
+# `docker pull` re-runs after an ephemeral wipe. No-op if /ephemeral absent.
+if [ -d /ephemeral ]; then
+    EPHEMERAL_HOME="/ephemeral/$USER"
+    if [ ! -d "$EPHEMERAL_HOME" ]; then
+        echo "[config] creating $EPHEMERAL_HOME..."
+        sudo install -d -o "$USER" -g "$USER" "$EPHEMERAL_HOME"
+    fi
+    # Symlink growers into ephemeral. Covers tools that ignore the env vars
+    # below or run outside an interactive shell (vscode-server, cron, etc.).
+    # Migrates existing contents on first run; re-anchors targets after a wipe.
+    for d in .local .claude .cache .vscode-server; do
+        target="$EPHEMERAL_HOME/$d"
+        if [ -L "$HOME/$d" ]; then
+            mkdir -p "$target"   # re-anchor if ephemeral was wiped
+        else
+            mkdir -p "$target"
+            if [ -d "$HOME/$d" ]; then
+                echo "[config] migrating ~/$d to ephemeral..."
+                cp -a "$HOME/$d/." "$target/"
+                rm -rf "$HOME/$d"
+            fi
+            ln -sT "$target" "$HOME/$d"
+        fi
+    done
+    export XDG_CACHE_HOME="$EPHEMERAL_HOME/.cache"            # uv, pip, misc tool caches
+    export UV_PYTHON_INSTALL_DIR="$EPHEMERAL_HOME/uv-pythons" # uv-managed interpreters
+    export MISE_DATA_DIR="$EPHEMERAL_HOME/mise"               # node/ruby/go runtimes
+    export HF_HOME="$EPHEMERAL_HOME/.cache/huggingface"       # model downloads
+    export GOPATH="$EPHEMERAL_HOME/go"                        # go module cache
+else
+    echo "[skip] ephemeral redirects (/ephemeral not mounted)"
+fi
 
 # Pre-accept GitHub SSH host key so git/ssh never prompts
 mkdir -p ~/.ssh
@@ -84,19 +120,6 @@ else
     echo "[skip] gh already installed"
 fi
 
-# Google Cloud CLI (gcloud, gsutil, bq)
-# https://cloud.google.com/sdk/docs/install#deb
-if ! dpkg -s google-cloud-cli &>/dev/null; then
-    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg \
-        | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/cloud.google.gpg
-    echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
-        | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list > /dev/null
-    sudo apt-get update -qq
-    sudo apt-get install -y google-cloud-cli
-else
-    echo "[skip] google-cloud-cli already installed"
-fi
-
 # uv (Python package manager)
 install_if_missing uv "curl -LsSf https://astral.sh/uv/install.sh | sh"
 
@@ -107,8 +130,8 @@ install_if_missing claude "curl -fsSL https://claude.ai/install.sh | bash"
 install_if_missing mise "curl https://mise.run | sh"
 
 # Fresh installers drop binaries in ~/.local/bin; mise shims at
-# ~/.local/share/mise/shims provide npm/go/gem from the pinned runtimes.
-export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+# $MISE_DATA_DIR/shims provide npm/go/gem from the pinned runtimes.
+export PATH="$HOME/.local/bin:${MISE_DATA_DIR:-$HOME/.local/share/mise}/shims:$PATH"
 
 # Precompiled Ruby — default compile-from-source needs gcc + libssl-dev etc.
 mise settings ruby.compile=false
@@ -131,24 +154,39 @@ claude plugin marketplace update claude-plugins-official
 # claude plugin install gopls-lsp
 # claude plugin install ruby-lsp
 
-# === VAST.AI CONFIG ===
-# Disable vast.ai's auto-tmux which breaks SSH agent forwarding
-touch ~/.no_auto_tmux
-# Remove vast.ai's auto venv activation from bashrc
-sed -i '/\/venv\/.*\/bin\/activate/d' ~/.bashrc
-# Remove vast.ai's forced cd to /workspace
-sed -i '/^cd ${WORKSPACE}/d' ~/.bashrc
-# sshd inherits stale PWD=/workspace from the container entrypoint; resync it
-if ! grep -q 'PWD=.*pwd' ~/.bashrc 2>/dev/null; then
-    echo 'export PWD="$(/bin/pwd -P)"' >> ~/.bashrc
+
+# Docker (official convenience script)
+install_if_missing docker "curl -fsSL https://get.docker.com | sh"
+
+# Add current user to docker group so `docker` works without sudo.
+# Check /etc/group (persistent state), not `id` (shell-snapshot state) —
+# otherwise a prior run that happened in this same shell looks "missing".
+if ! getent group docker | grep -qw "$USER"; then
+    echo "[config] adding $USER to docker group..."
+    sudo usermod -aG docker "$USER"
+else
+    echo "[skip] $USER already in docker group"
 fi
 
-# === CONDARC ===
-# Disable conda auto-activate base (vast.ai images often have conda pre-installed)
-echo "[config] writing ~/.condarc..."
-cat > ~/.condarc << 'CONDARC_EOF'
-auto_activate_base: false
-CONDARC_EOF
+# NVIDIA Container Toolkit (GPU access inside Docker containers — skip if no GPU)
+if command -v nvidia-smi &>/dev/null; then
+    if dpkg -s nvidia-container-toolkit &>/dev/null; then
+        echo "[skip] nvidia-container-toolkit already installed"
+    else
+        echo "[install] nvidia-container-toolkit..."
+        curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
+            | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+        curl -fsSL https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
+            | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \
+            | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list > /dev/null
+        sudo apt-get update -qq
+        sudo apt-get install -y nvidia-container-toolkit
+        sudo nvidia-ctk runtime configure --runtime=docker
+        sudo systemctl restart docker
+    fi
+else
+    echo "[skip] nvidia-container-toolkit (no GPU detected)"
+fi
 
 # === TMUX CONFIG ===
 echo "[config] writing ~/.tmux.conf..."
@@ -217,6 +255,29 @@ GIT_EOF
 
 # === BASH ALIASES & SSH AGENT FIX ===
 echo "[config] adding bashrc snippets..."
+if ! grep -q 'ephemeral-redirects (managed by vmprep)' ~/.bashrc 2>/dev/null; then
+cat >> ~/.bashrc << 'BASHRC_EPH'
+# ephemeral-redirects (managed by vmprep)
+#
+# Big, re-creatable stuff lives on the ephemeral disk. If the disk was
+# wiped (instance stop), recreate the workspace dir; sudo -n fails
+# gracefully when passwordless sudo is unavailable.
+if [ -d /ephemeral ]; then
+    if [ ! -d "/ephemeral/$USER" ]; then
+        sudo -n install -d -o "$USER" -g "$USER" "/ephemeral/$USER" 2>/dev/null
+    fi
+    # re-anchor dangling symlink targets after a wipe
+    for d in .local .claude .cache .vscode-server; do
+        [ -L "$HOME/$d" ] && [ ! -e "$HOME/$d" ] && mkdir -p "/ephemeral/$USER/$d"
+    done
+    export XDG_CACHE_HOME="/ephemeral/$USER/.cache"
+    export UV_PYTHON_INSTALL_DIR="/ephemeral/$USER/uv-pythons"
+    export MISE_DATA_DIR="/ephemeral/$USER/mise"
+    export HF_HOME="/ephemeral/$USER/.cache/huggingface"
+    export GOPATH="/ephemeral/$USER/go"
+fi
+BASHRC_EPH
+fi
 if ! grep -q 'ssh-agent-socket-mgmt (managed by vmprep)' ~/.bashrc 2>/dev/null; then
 cat >> ~/.bashrc << 'BASHRC_SSH'
 # ssh-agent-socket-mgmt (managed by vmprep)
@@ -260,8 +321,7 @@ sshsock() {
 BASHRC_SSH
 fi
 if ! grep -q 'alias cc=' ~/.bashrc 2>/dev/null; then
-    # auto mode instead of --dangerously-skip-permissions because the latter is blocked as root
-    echo 'alias cc="claude --permission-mode auto"' >> ~/.bashrc
+    echo 'alias cc="claude --dangerously-skip-permissions"' >> ~/.bashrc
 fi
 if ! grep -q '\.local/bin' ~/.bashrc 2>/dev/null; then
     echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc

@@ -57,7 +57,7 @@ if command -v apt-get &>/dev/null; then
 fi
 
 # Core tools via apt
-for pkg in build-essential tmux htop git tree curl wget jq unzip qpdf; do
+for pkg in build-essential tmux htop git tree curl wget jq unzip qpdf mupdf-tools poppler-utils webp; do
     sudo_install_apt "$pkg"
 done
 
@@ -101,7 +101,7 @@ export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
 mise settings ruby.compile=false
 
 # Pin company runtime versions
-mise use -g node@24.13.1 ruby@3.3.6 go@1.25.0
+mise use -g node@24.13.1 ruby@3.3.6 go@1.25.0 aws-cli@latest
 
 # Language servers
 # install_if_missing pyright "npm i -g pyright"
@@ -275,7 +275,9 @@ echo ""
 echo "=== VM Prep complete ==="
 echo ""
 echo ">>> TODO:"
-echo ">>>   1) Login to Claude:  claude  (open with VS Code terminal for browser auto-open)"
-echo ">>>   2) Login to GitHub:  gh auth login"
-echo ">>>   3) In VS Code, open the Extensions panel and click 'Install in SSH: <host>'"
-echo ">>>   4) Log-out and log-in again to apply changes"
+echo ">>>   1) Copy AWS from local to remote (run locally):  rsync -v --mkpath ~/.aws/config <host>:~/.aws/config"
+echo ">>>   2) Login to AWS for Claude Bedrock:  aws sso login --profile claude-bedrock"
+echo ">>>   3) Login to Claude:  claude"
+echo ">>>   4) Login to GitHub:  gh auth login"
+echo ">>>   5) In VS Code, open the Extensions panel and click 'Install in SSH: <host>'"
+echo ">>>   6) Log-out and log-in again to apply changes"

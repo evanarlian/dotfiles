@@ -101,7 +101,11 @@
     // vscode remote and tailscale requirement
     "remote.SSH.useLocalServer": false,
     "remote.autoForwardPorts": false,
+    "remote.SSH.remotePlatform": {
+        "*": "linux",
+    },
     // misc
+    "update.mode": "none",
     "task.allowAutomaticTasks": "off",
     "security.workspace.trust.enabled": false,
     "gitlens.plusFeatures.enabled": false,
@@ -114,18 +118,6 @@
         "**/.ruff_cache": true,
         "**/.venv": true
     },
-    "json.schemaDownload.trustedDomains": {
-        "https://schemastore.azurewebsites.net/": true,
-        "https://raw.githubusercontent.com/": true,
-        "https://www.schemastore.org/": true,
-        "https://json.schemastore.org/": true,
-        "https://json-schema.org/": true,
-        "https://biomejs.dev": true
-    },
     "errorLens.enabled": true,
     "gitlens.mode.active": "zen",
-    "update.mode": "none",
-    "remote.SSH.remotePlatform": {
-        "*": "linux"
-    },
 }
