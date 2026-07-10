@@ -153,17 +153,35 @@ CONDARC_EOF
 # === TMUX CONFIG ===
 echo "[config] writing ~/.tmux.conf..."
 cat > ~/.tmux.conf << 'TMUX_EOF'
-# FAQ: https://github.com/tmux/tmux/wiki/FAQ
-
 # mouse mode to make tmux behaves more like regular app
 set -g mouse on
 setw -g mode-keys vi
+
+# clipboard helper: pbcopy (macOS) / wl-copy (wayland) / xclip (x11)
+CLIP='if command -v pbcopy > /dev/null; then pbcopy; elif command -v wl-copy > /dev/null; then wl-copy; elif command -v xclip > /dev/null; then xclip -selection clipboard; fi'
+
+# mouse drag just highlights + stays in copy-mode; it does NOT touch the system
+# clipboard. this prevents an accidental tiny drag from clobbering the clipboard.
 unbind -T copy-mode-vi MouseDragEnd1Pane
-bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "if command -v pbcopy > /dev/null; then pbcopy; elif command -v wl-copy > /dev/null; then wl-copy; elif command -v xclip > /dev/null; then xclip -selection clipboard; fi"
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-selection-no-clear
+
+# explicit yank: press y (or Enter) to copy the selection to the system clipboard,
+# same as a normal terminal where nothing is copied until you ask.
+bind-key -T copy-mode-vi y     send-keys -X copy-pipe-and-cancel "$CLIP"
+bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "$CLIP"
+
+# single Escape always exits copy-mode (default only clears the selection and
+# stays, forcing a second Ctrl-C to actually leave).
+bind-key -T copy-mode-vi Escape send-keys -X cancel
+
+# larger buffer
+set -g history-limit 100000
 
 # enable color and true color
-set -g default-terminal "xterm-256color"
-set -ag terminal-overrides ",xterm*:RGB"
+# advertise tmux's own terminfo to programs inside tmux (not "xterm", which is a lie)
+set -g default-terminal "tmux-256color"
+# let 24-bit true color pass through to the outer terminal
+set -as terminal-features ",xterm-256color:RGB"
 
 # start windows and panes at 1, not 0
 set -g base-index 1
