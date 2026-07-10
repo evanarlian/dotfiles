@@ -46,7 +46,6 @@ printf '\n'
 section "TRUE COLOR gradient (the real test)"
 # ---------------------------------------------------------------------------
 echo 'PASS = smooth continuous gradient.  FAIL = chunky bands / repeated blocks.'
-echo '(Apple Terminal.app has no true color -> expect bands here, that is normal.)'
 awk 'BEGIN{
   for (i = 0; i < 76; i++) {
     r = 255 - (i * 255 / 76);
@@ -56,6 +55,13 @@ awk 'BEGIN{
   }
   printf "\033[0m\n";
 }'
+
+# Strict single-channel ramp: the decisive test. Only blue varies 0->255.
+# True color -> perfectly smooth. 256-color fallback -> ~6 visible blue bands
+# (the 256-palette color cube has only 6 blue levels). This is what SSH into a
+# host without the terminal-features RGB line looks like.
+echo 'strict blue ramp (smooth = true color, ~6 bands = 256-color fallback):'
+awk 'BEGIN{for(i=0;i<80;i++){b=int(i*255/79);printf "\033[48;2;0;0;%dm ",b}print "\033[0m"}'
 
 # ---------------------------------------------------------------------------
 section "Text attributes (bold / dim / italic / underline / reverse)"
