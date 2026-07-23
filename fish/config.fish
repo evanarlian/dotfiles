@@ -39,6 +39,7 @@ if type -q rbenv
 end
 
 if test (uname) = Darwin
+    set -gx DISABLE_SPRING 1
     set -gx OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
 end
 
