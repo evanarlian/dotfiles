@@ -271,6 +271,58 @@ cat > ~/.gitconfig << 'GIT_EOF'
 	format = ssh
 GIT_EOF
 
+# === AWS CONFIG ===
+# Bake ~/.aws/config with the Boon SSO profiles so the box is ready without
+# copying anything from the host. Auth is still runtime — run
+# `aws sso login --profile bedrock-map` after prep to mint tokens.
+echo "[config] writing ~/.aws/config..."
+mkdir -p ~/.aws
+cat > ~/.aws/config << 'AWS_EOF'
+[profile dri]
+sso_start_url = https://getboon.awsapps.com/start
+sso_region = us-east-1
+sso_account_id = 193572987808
+sso_role_name = BoonTrainingDRI
+region = us-east-1
+
+[sso-session boon-sso]
+sso_start_url = https://getboon.awsapps.com/start
+sso_region = us-east-1
+sso_registration_scopes = sso:account:access
+
+[profile claude-bedrock]
+sso_session = boon-sso
+sso_account_id = 193572987808
+sso_role_name = ClaudeCodeBedrock
+region = us-east-1
+
+[profile bedrock-map]
+role_arn = arn:aws:iam::193572987808:role/boon-bedrock-map
+source_profile = claude-bedrock
+region = us-east-1
+AWS_EOF
+
+# === CLAUDE SETTINGS ===
+# Bake a minimal Claude Code settings.json so the box is ready to use on first
+# launch (no interactive setup): point it at Bedrock via the `bedrock-map`
+# profile, pin the model, skip the dangerous-mode prompt, and set the dark
+# theme. Auth is still runtime — run `aws sso login --profile bedrock-map`
+# after prep to mint tokens.
+echo "[config] writing ~/.claude/settings.json..."
+mkdir -p ~/.claude
+cat > ~/.claude/settings.json << 'CLAUDE_SETTINGS_EOF'
+{
+  "env": {
+    "CLAUDE_CODE_USE_BEDROCK": "1",
+    "AWS_REGION": "us-east-1",
+    "AWS_PROFILE": "bedrock-map"
+  },
+  "model": "us.anthropic.claude-opus-4-8[1m]",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark"
+}
+CLAUDE_SETTINGS_EOF
+
 # === BASH ALIASES & SSH AGENT FIX ===
 echo "[config] adding bashrc snippets..."
 if ! grep -q 'ephemeral-redirects (managed by vmprep)' ~/.bashrc 2>/dev/null; then
@@ -352,9 +404,8 @@ echo ""
 echo "=== VM Prep complete ==="
 echo ""
 echo ">>> TODO:"
-echo ">>>   1) Copy AWS from local to remote (run locally):  rsync -v --mkpath ~/.aws/config <host>:~/.aws/config"
-echo ">>>   2) Login to AWS for Claude Bedrock:  aws sso login --profile claude-bedrock"
-echo ">>>   3) Login to Claude:  claude"
-echo ">>>   4) Login to GitHub:  gh auth login"
-echo ">>>   5) In VS Code, open the Extensions panel and click 'Install in SSH: <host>'"
-echo ">>>   6) Log-out and log-in again to apply changes"
+echo ">>>   1) Login to AWS for Claude Bedrock:  aws sso login --profile bedrock-map"
+echo ">>>   2) Try Claude:  claude"
+echo ">>>   3) Login to GitHub:  gh auth login"
+echo ">>>   4) In VS Code, open the Extensions panel and click 'Install in SSH: <host>'"
+echo ">>>   5) Log-out and log-in again to apply changes"
