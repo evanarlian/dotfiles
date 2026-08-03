@@ -14,6 +14,7 @@
     "workbench.panel.defaultLocation": "right",
     "workbench.activityBar.location": "top",
     "workbench.editor.wrapTabs": true,
+    "workbench.editor.useModal": "off",
     "explorer.compactFolders": false,
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
@@ -43,7 +44,6 @@
     "editor.inlayHints.fontSize": 12,
     // python
     "python.envFile": "",
-    "python.defaultInterpreterPath": ".venv/bin/python",
     "python.terminal.activateEnvironment": false,
     "python.analysis.typeCheckingMode": "standard",
     "python.analysis.autoImportCompletions": true,
@@ -112,6 +112,7 @@
     "update.mode": "none",
     "task.allowAutomaticTasks": "off",
     "security.workspace.trust.enabled": false,
+    "extensions.ignoreRecommendations": true,
     "gitlens.plusFeatures.enabled": false,
     "chat.disableAIFeatures": true,
     "files.exclude": {
