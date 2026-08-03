@@ -53,3 +53,9 @@ end
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+
+# >>> ccregion (setup-boon-bedrock) >>>
+function ccregion
+    bash "/home/evan/.claude/plugins/cache/boon-plugins/setup-boon-bedrock/2.11.0/scripts/ccregion.sh" $argv
+end
+# <<< ccregion (setup-boon-bedrock) <<<
