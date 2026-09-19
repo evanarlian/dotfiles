@@ -10,7 +10,6 @@
     "window.customMenuBarAltFocus": false,
     "window.enableMenuBarMnemonics": false,
     "window.confirmBeforeClose": "keyboardOnly",
-    "workbench.startupEditor": "none",
     "workbench.panel.defaultLocation": "bottom",
     "workbench.activityBar.location": "top",
     "workbench.editor.wrapTabs": true,
@@ -93,6 +92,8 @@
     "js/ts.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
     "js/ts.inlayHints.variableTypes.suppressWhenTypeMatchesName": false,
     "biome.suggestInstallingGlobally": false,
+    // cpp
+    "C_Cpp.intelliSenseEngine": "disabled",
     // git
     "git.confirmSync": false,
     "git.suggestSmartCommit": false,
@@ -103,6 +104,8 @@
     "remote.autoForwardPorts": false,
     "remote.SSH.remotePlatform": {
         "*": "linux",
+        "a100-kevin-training-and-compiler": "linux",
+        "stag-rtx-a6000": "linux"
     },
     // misc
     "update.mode": "none",
