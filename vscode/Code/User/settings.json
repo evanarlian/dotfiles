@@ -10,7 +10,6 @@
     "window.customMenuBarAltFocus": false,
     "window.enableMenuBarMnemonics": false,
     "window.confirmBeforeClose": "keyboardOnly",
-    "workbench.startupEditor": "none",
     "workbench.panel.defaultLocation": "right",
     "workbench.activityBar.location": "top",
     "workbench.editor.wrapTabs": true,

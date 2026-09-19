@@ -34,7 +34,7 @@
     {
         "key": "backspace",
         "command": "deleteFile",
-        "when": "filesExplorerFocus && foldersViewVisible && !inputFocus && isMac"
+        "when": "filesExplorerFocus && foldersViewVisible && !inputFocus"
     },
     {
         "key": "ctrl+1",
