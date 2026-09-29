@@ -7,7 +7,7 @@ set -g fish_prompt_pwd_dir_length 3
 
 fish_add_path "$HOME/bin"
 fish_add_path "$HOME/.local/bin"
-
+fish_add_path "$HOME/.opencode/bin"
 
 # Fish plugins
 if functions -q fzf_configure_bindings
@@ -42,9 +42,6 @@ if test (uname) = Darwin
     set -gx DISABLE_SPRING 1
     set -gx OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
 end
-
-# opencode
-fish_add_path /home/evan/.opencode/bin
 
 # mise
 if type -q mise
