@@ -3,7 +3,7 @@
 # Only tested on vast.ai's "NVIDIA CUDA" docker image template.
 #
 # run from the internet:
-# curl -fsSL https://raw.githubusercontent.com/evanarlian/dotfiles/macos/vmprep/vmprep_vast.sh | bash
+# curl -fsSL https://raw.githubusercontent.com/evanarlian/dotfiles/main/vmprep/vmprep_vast.sh | bash
 
 set -euo pipefail
 

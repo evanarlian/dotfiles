@@ -3,7 +3,7 @@
 # Only tested on GCP's "Deep Learning on Linux" boot disk image with Ubuntu.
 #
 # run from the internet:
-# curl -fsSL https://raw.githubusercontent.com/evanarlian/dotfiles/macos/vmprep/vmprep_gcp.sh | bash
+# curl -fsSL https://raw.githubusercontent.com/evanarlian/dotfiles/main/vmprep/vmprep_gcp.sh | bash
 
 set -euo pipefail
 
