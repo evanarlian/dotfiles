@@ -50,7 +50,7 @@ if command -v apt-get &>/dev/null; then
 fi
 
 # Core tools via apt
-for pkg in build-essential tmux htop git tree curl wget jq unzip; do
+for pkg in build-essential tmux htop git tree curl wget jq unzip micro; do
     sudo_install_apt "$pkg"
 done
 
@@ -134,7 +134,17 @@ cat > ~/.tmux.conf << 'TMUX_EOF'
 set -g mouse on
 setw -g mode-keys vi
 
-# clipboard helper: pbcopy (macOS) / wl-copy (wayland) / xclip (x11)
+# clipboard, two paths (both fire on every yank):
+# 1. CLIP below: pipes into pbcopy (macOS) / wl-copy (wayland) / xclip (x11).
+#    only works when tmux runs on the machine you're sitting at; on a headless
+#    VM none of these exist, so it silently does nothing.
+# 2. OSC 52: tmux sends the selection to the outer terminal as an escape
+#    sequence, which travels back over ssh. this is what makes yank work from
+#    a VM, but only in terminals that support it (VS Code yes; GNOME Terminal
+#    and Terminal.app no).
+# set-clipboard on (default is external) also lets programs inside tmux, like
+# nvim or claude code, use OSC 52 to copy to your local clipboard.
+set -s set-clipboard on
 CLIP='if command -v pbcopy > /dev/null; then pbcopy; elif command -v wl-copy > /dev/null; then wl-copy; elif command -v xclip > /dev/null; then xclip -selection clipboard; fi'
 
 # mouse drag just highlights + stays in copy-mode; it copies nothing (not even
@@ -269,6 +279,6 @@ echo "=== VM Prep complete ==="
 echo ""
 echo ">>> TODO:"
 echo ">>>   1) Try Claude:  claude"
-echo ">>>   2) Login to GitHub CLI (for Claude PRs/issues/CI; git itself uses the SSH agent):  gh auth login -p ssh --skip-ssh-key -w"
+echo ">>>   2) Login to GitHub CLI:  gh auth login -p ssh --skip-ssh-key -w"
 echo ">>>   3) In VS Code, open the Extensions panel and click 'Install in SSH: <host>'"
 echo ">>>   4) Log-out and log-in again to apply changes"
