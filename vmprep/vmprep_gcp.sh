@@ -36,18 +36,11 @@ mkdir -p ~/.ssh
 ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
 sort -u -o ~/.ssh/known_hosts ~/.ssh/known_hosts
 
-# Extract ed25519 public key from SSH agent for commit signing.
-# With agent forwarding the private key never touches the VM, but
-# git's SSH signing still needs the .pub file on disk.
-if [ ! -f ~/.ssh/id_ed25519.pub ]; then
-    if ssh-add -L | grep -m1 ed25519 > ~/.ssh/id_ed25519.pub 2>/dev/null; then
-        echo "[config] wrote ~/.ssh/id_ed25519.pub from SSH agent"
-    else
-        rm -f ~/.ssh/id_ed25519.pub
-        echo "[warn] no ed25519 key found in SSH agent, commit signing will not work. Run `ssh-add` from host first to add ssh key."
-    fi
-else
-    echo "[skip] ~/.ssh/id_ed25519.pub already exists"
+# Commit signing asks the forwarded SSH agent for its key at commit time
+# (gpg.ssh.defaultKeyCommand in ~/.gitconfig below), so no key file is
+# written here and whichever host is connected signs with its own key.
+if ! ssh-add -L 2>/dev/null | grep -q ed25519; then
+    echo "[warn] no ed25519 key in SSH agent, commit signing will not work. Run 'ssh-add' on the host and connect with agent forwarding."
 fi
 
 # Update apt cache once
@@ -57,16 +50,9 @@ if command -v apt-get &>/dev/null; then
 fi
 
 # Core tools via apt
-for pkg in build-essential tmux htop git tree curl wget jq unzip qpdf mupdf-tools poppler-utils webp; do
+for pkg in build-essential tmux htop git tree curl wget jq unzip; do
     sudo_install_apt "$pkg"
 done
-
-# nvtop (GPU monitoring — skip if no GPU)
-if command -v nvidia-smi &>/dev/null; then
-    sudo_install_apt nvtop
-else
-    echo "[skip] nvtop (no GPU detected)"
-fi
 
 # GitHub CLI
 # https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian
@@ -90,34 +76,23 @@ install_if_missing uv "curl -LsSf https://astral.sh/uv/install.sh | sh"
 # Claude Code
 install_if_missing claude "curl -fsSL https://claude.ai/install.sh | bash"
 
-# mise — manages node, ruby, go runtimes
+# mise — manages the node runtime
 install_if_missing mise "curl https://mise.run | sh"
 
 # Fresh installers drop binaries in ~/.local/bin; mise shims at
-# ~/.local/share/mise/shims provide npm/go/gem from the pinned runtimes.
+# ~/.local/share/mise/shims provide node/npm from the pinned runtime.
 export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
 
-# Precompiled Ruby — default compile-from-source needs gcc + libssl-dev etc.
-mise settings ruby.compile=false
-
-# Pin company runtime versions
-mise use -g node@24.13.1 ruby@3.3.6 go@1.25.0 aws-cli@latest
+# Pin runtime versions
+mise use -g node@24.13.1
 
 # Language servers
 # install_if_missing pyright "npm i -g pyright"
-# install_if_missing typescript-language-server "npm i -g typescript-language-server typescript"
-# install_if_missing gopls "go install golang.org/x/tools/gopls@latest"
-# install_if_missing ruby-lsp "gem install ruby-lsp"
 
 # Claude plugin marketplace (self-gating: no-op if already added)
-claude plugin marketplace add getboon/boon-plugins
 claude plugin marketplace add anthropics/claude-plugins-official
 claude plugin marketplace update claude-plugins-official
 # claude plugin install pyright-lsp
-# claude plugin install typescript-lsp
-# claude plugin install gopls-lsp
-# claude plugin install ruby-lsp
-
 
 # Docker (official convenience script)
 install_if_missing docker "curl -fsSL https://get.docker.com | sh"
@@ -162,15 +137,14 @@ setw -g mode-keys vi
 # clipboard helper: pbcopy (macOS) / wl-copy (wayland) / xclip (x11)
 CLIP='if command -v pbcopy > /dev/null; then pbcopy; elif command -v wl-copy > /dev/null; then wl-copy; elif command -v xclip > /dev/null; then xclip -selection clipboard; fi'
 
-# mouse drag just highlights + stays in copy-mode; it does NOT touch the system
-# clipboard. this prevents an accidental tiny drag from clobbering the clipboard.
+# mouse drag just highlights + stays in copy-mode; it copies nothing (not even
+# into tmux's paste buffer). only pressing y copies, to the clipboard.
 unbind -T copy-mode-vi MouseDragEnd1Pane
-bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-selection-no-clear
 
-# explicit yank: press y (or Enter) to copy the selection to the system clipboard,
-# same as a normal terminal where nothing is copied until you ask.
+# explicit yank: only y copies the selection to the system clipboard.
+# Enter behaves like Escape: exits copy-mode without copying.
 bind-key -T copy-mode-vi y     send-keys -X copy-pipe-and-cancel "$CLIP"
-bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "$CLIP"
+bind-key -T copy-mode-vi Enter send-keys -X cancel
 
 # single Escape always exits copy-mode (default only clears the selection and
 # stays, forcing a second Ctrl-C to actually leave).
@@ -222,7 +196,6 @@ cat > ~/.gitconfig << 'GIT_EOF'
 [user]
 	name = Evan Arlian
 	email = evan.arlian@getboon.ai
-	signingkey = ~/.ssh/id_ed25519.pub
 [push]
 	autoSetupRemote = true
 [pull]
@@ -233,59 +206,9 @@ cat > ~/.gitconfig << 'GIT_EOF'
 	gpgsign = true
 [gpg]
 	format = ssh
+[gpg "ssh"]
+	defaultKeyCommand = sh -c 'echo key::$(ssh-add -L | grep -m1 ed25519)'
 GIT_EOF
-
-# === AWS CONFIG ===
-# Bake ~/.aws/config with the Boon SSO profiles so the box is ready without
-# copying anything from the host. Auth is still runtime — run
-# `aws sso login --profile bedrock-map` after prep to mint tokens.
-echo "[config] writing ~/.aws/config..."
-mkdir -p ~/.aws
-cat > ~/.aws/config << 'AWS_EOF'
-[profile dri]
-sso_start_url = https://getboon.awsapps.com/start
-sso_region = us-east-1
-sso_account_id = 193572987808
-sso_role_name = BoonTrainingDRI
-region = us-east-1
-
-[sso-session boon-sso]
-sso_start_url = https://getboon.awsapps.com/start
-sso_region = us-east-1
-sso_registration_scopes = sso:account:access
-
-[profile claude-bedrock]
-sso_session = boon-sso
-sso_account_id = 193572987808
-sso_role_name = ClaudeCodeBedrock
-region = us-east-1
-
-[profile bedrock-map]
-role_arn = arn:aws:iam::193572987808:role/boon-bedrock-map
-source_profile = claude-bedrock
-region = us-east-1
-AWS_EOF
-
-# === CLAUDE SETTINGS ===
-# Bake a minimal Claude Code settings.json so the box is ready to use on first
-# launch (no interactive setup): point it at Bedrock via the `bedrock-map`
-# profile, pin the model, skip the dangerous-mode prompt, and set the dark
-# theme. Auth is still runtime — run `aws sso login --profile bedrock-map`
-# after prep to mint tokens.
-echo "[config] writing ~/.claude/settings.json..."
-mkdir -p ~/.claude
-cat > ~/.claude/settings.json << 'CLAUDE_SETTINGS_EOF'
-{
-  "env": {
-    "CLAUDE_CODE_USE_BEDROCK": "1",
-    "AWS_REGION": "us-east-1",
-    "AWS_PROFILE": "bedrock-map"
-  },
-  "model": "us.anthropic.claude-opus-4-8[1m]",
-  "skipDangerousModePermissionPrompt": true,
-  "theme": "dark"
-}
-CLAUDE_SETTINGS_EOF
 
 # === BASH ALIASES & SSH AGENT FIX ===
 echo "[config] adding bashrc snippets..."
@@ -345,8 +268,7 @@ echo ""
 echo "=== VM Prep complete ==="
 echo ""
 echo ">>> TODO:"
-echo ">>>   1) Login to AWS for Claude Bedrock:  aws sso login --profile claude-bedrock --use-device-code"
-echo ">>>   2) Try Claude:  claude"
-echo ">>>   3) Login to GitHub:  gh auth login"
-echo ">>>   4) In VS Code, open the Extensions panel and click 'Install in SSH: <host>'"
-echo ">>>   5) Log-out and log-in again to apply changes"
+echo ">>>   1) Try Claude:  claude"
+echo ">>>   2) Login to GitHub CLI (for Claude PRs/issues/CI; git itself uses the SSH agent):  gh auth login -p ssh --skip-ssh-key -w"
+echo ">>>   3) In VS Code, open the Extensions panel and click 'Install in SSH: <host>'"
+echo ">>>   4) Log-out and log-in again to apply changes"
