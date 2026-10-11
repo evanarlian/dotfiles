@@ -13,3 +13,5 @@
 	gpgsign = true
 [gpg]
 	format = ssh
+[gpg "ssh"]
+	defaultKeyCommand = sh -c 'echo key::$(ssh-add -L | grep -m1 ed25519)'
