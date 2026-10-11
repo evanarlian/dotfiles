@@ -7,7 +7,7 @@ theme = Wombat
 
 # font. list installed families with `ghostty +list-fonts`
 font-family = Cascadia Mono NF
-font-size = 10.5
+font-size = 12.5
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
@@ -28,3 +28,9 @@ shell-integration-features = no-cursor
 # IAP). cost: terminfo-only programs lose curly/colored underlines and
 # synchronized output; true color still works via COLORTERM=truecolor
 term = xterm-256color
+
+# opt-backspace deletes a whole word (macOS muscle memory). sends ctrl-w,
+# which fish / bash / zsh all treat as backward word/path kill, and works
+# over ssh too. `left` keeps right-opt free for unicode input.
+macos-option-as-alt = left
+keybind = alt+backspace=text:\x17
