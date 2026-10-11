@@ -1,7 +1,6 @@
 [user]
 	name = Evan Arlian
 	email = evanarlian2000@gmail.com
-	signingkey = ~/.ssh/id_ed25519.pub
 [includeIf "gitdir:~/work/"]
     path = ~/.gitconfig_work
 [push]
@@ -14,3 +13,5 @@
 	gpgsign = true
 [gpg]
 	format = ssh
+[gpg "ssh"]
+	defaultKeyCommand = sh -c 'echo key::$(ssh-add -L | grep -m1 ed25519)'
