@@ -1,0 +1,30 @@
+# ghostty config. full option list: `ghostty +show-config --default --docs`
+# reload in a running ghostty: ctrl+shift+, (linux) / cmd+shift+, (macos)
+
+# theme. browse built-in themes with `ghostty +list-themes`
+# a single name pins one theme; a pair like light:X,dark:Y follows the OS appearance
+theme = Wombat
+
+# font. list installed families with `ghostty +list-fonts`
+font-family = Cascadia Mono NF
+font-size = 10.5
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+# initial size of new windows, in cells (columns x rows). both must be set.
+# only affects new windows, not tabs/splits. on linux (GTK) the result can be
+# a cell or so off because window decorations aren't accounted for
+window-width = 140
+window-height = 45
+
+# cursor: blinking block. programs can still request their own shape
+cursor-style = block
+shell-integration-features = no-cursor
+
+# TERM: xterm-256color instead of the default xterm-ghostty, which remote hosts
+# don't have terminfo for (ubuntu's bashrc then skips the colored prompt, tmux
+# may refuse to start). covers every ssh path (plain ssh, gcloud compute ssh,
+# IAP). cost: terminfo-only programs lose curly/colored underlines and
+# synchronized output; true color still works via COLORTERM=truecolor
+term = xterm-256color
