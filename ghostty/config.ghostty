@@ -15,8 +15,8 @@ font-feature = -dlig
 # initial size of new windows, in cells (columns x rows). both must be set.
 # only affects new windows, not tabs/splits. on linux (GTK) the result can be
 # a cell or so off because window decorations aren't accounted for
-window-width = 140
-window-height = 45
+window-width = 150
+window-height = 50
 
 # cursor: blinking block. programs can still request their own shape
 cursor-style = block
