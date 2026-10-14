@@ -15,8 +15,8 @@ font-feature = -dlig
 # initial size of new windows, in cells (columns x rows). both must be set.
 # only affects new windows, not tabs/splits. on linux (GTK) the result can be
 # a cell or so off because window decorations aren't accounted for
-window-width = 140
-window-height = 45
+window-width = 150
+window-height = 50
 
 # cursor: blinking block. programs can still request their own shape
 cursor-style = block
@@ -28,6 +28,11 @@ shell-integration-features = no-cursor
 # IAP). cost: terminfo-only programs lose curly/colored underlines and
 # synchronized output; true color still works via COLORTERM=truecolor
 term = xterm-256color
+
+# scrolling: 1:1 like other terminals. default is precision:1,discrete:3
+# (3x wheel events), which stacks with tmux's `-N 5 scroll-up` to ~15-30
+# lines per tick instead of 5.
+mouse-scroll-multiplier = precision:1,discrete:1
 
 # opt-backspace deletes a whole word (macOS muscle memory). sends ctrl-w,
 # which fish / bash / zsh all treat as backward word/path kill, and works
