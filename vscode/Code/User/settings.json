@@ -103,11 +103,6 @@
     // vscode remote and tailscale requirement
     "remote.SSH.useLocalServer": false,
     "remote.autoForwardPorts": false,
-    "remote.SSH.remotePlatform": {
-        "*": "linux",
-        "a100-kevin-training-and-compiler": "linux",
-        "stag-rtx-a6000": "linux"
-    },
     // misc
     "update.mode": "none",
     "task.allowAutomaticTasks": "off",

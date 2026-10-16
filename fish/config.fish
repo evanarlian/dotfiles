@@ -33,11 +33,6 @@ if type -q uvx
     uvx --generate-shell-completion fish | source
 end
 
-# Added by `rbenv init` on Tue Jun 17 02:03:17 WIB 2025
-if type -q rbenv
-    status --is-interactive; and rbenv init - --no-rehash fish | source
-end
-
 if test (uname) = Darwin
     set -gx DISABLE_SPRING 1
     set -gx OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
@@ -51,9 +46,3 @@ end
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
-
-# >>> ccregion (setup-boon-bedrock) >>>
-function ccregion
-    bash "/home/evan/.claude/plugins/cache/boon-plugins/setup-boon-bedrock/2.11.0/scripts/ccregion.sh" $argv
-end
-# <<< ccregion (setup-boon-bedrock) <<<
