@@ -2,6 +2,11 @@
   "$schema": "https://opencode.ai/v2/cli.json",
   "session": {
     "scrollbar": true,
-    "image_preview": true
+    "image_preview": true,
+    "sidebar": "hide"
+  },
+  "attention": {
+    "sound": true,
+    "volume": 1
   }
 }
