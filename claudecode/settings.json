@@ -17,18 +17,6 @@
         ]
       }
     ],
-    "PreToolUse": [
-      {
-        "matcher": "AskUserQuestion|ExitPlanMode",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/beep.sh",
-            "async": true
-          }
-        ]
-      }
-    ],
     "PermissionRequest": [
       {
         "matcher": "",
@@ -67,7 +55,7 @@
     ],
     "Notification": [
       {
-        "matcher": "permission_prompt|agent_needs_input|quota_auto_resume_stale|quota_auto_resume_disabled",
+        "matcher": "agent_needs_input|quota_auto_resume_stale|quota_auto_resume_disabled",
         "hooks": [
           {
             "type": "command",
