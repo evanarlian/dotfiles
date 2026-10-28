@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_CODE_SCROLL_SPEED": "3"
+  },
   "hooks": {
     "Stop": [
       {
@@ -47,6 +50,32 @@
           }
         ]
       }
+    ],
+    "StopFailure": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/beep.sh",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt|agent_needs_input|quota_auto_resume_stale|quota_auto_resume_disabled",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/beep.sh",
+            "async": true
+          }
+        ]
+      }
     ]
-  }
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark"
 }
