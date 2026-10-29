@@ -13,4 +13,12 @@ branch=$(git -C "$dir" --no-optional-locks branch --show-current 2>/dev/null) \
 [ -z "$branch" ] && branch=$(git -C "$dir" --no-optional-locks rev-parse --short HEAD 2>/dev/null)
 [ -n "$branch" ] && location="$location:$branch"
 
-printf '%s · %s · %.1fK (%.0f%%)' "$location" "$model" "$(awk "BEGIN{print $tokens/1000}")" "$pct"
+right=$(printf '%s · %.1fK (%.0f%%)' "$model" "$(awk "BEGIN{print $tokens/1000}")" "$pct")
+
+# push the right part to the edge using the terminal width Claude Code puts in
+# COLUMNS; the offset covers the interface's own indent and margin. Count · as one
+# char in any locale.
+plain=${right//·/.}
+pad=$(( ${COLUMNS:-0} - ${#location} - ${#plain} - 4 ))
+[ "$pad" -lt 1 ] && pad=1
+printf '%s%*s%s' "$location" "$pad" '' "$right"
