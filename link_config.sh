@@ -26,6 +26,7 @@ link_file "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
 link_file "$DOTFILES_DIR/fish" "$HOME/.config/fish"
 link_file "$DOTFILES_DIR/claudecode/settings.json" "$HOME/.claude/settings.json"
 link_file "$DOTFILES_DIR/claudecode/beep.sh" "$HOME/.claude/beep.sh"
+link_file "$DOTFILES_DIR/claudecode/statusline.sh" "$HOME/.claude/statusline.sh"
 link_file "$DOTFILES_DIR/opencode/cli.json" "$HOME/.config/opencode/cli.json"
 link_file "$DOTFILES_DIR/ghostty/config.ghostty" "$HOME/.config/ghostty/config.ghostty"
 
