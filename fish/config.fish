@@ -8,6 +8,7 @@ set -g fish_prompt_pwd_dir_length 3
 fish_add_path "$HOME/bin"
 fish_add_path "$HOME/.local/bin"
 fish_add_path "$HOME/.opencode/bin"
+fish_add_path "$HOME/.pixi/bin"
 
 # Fish plugins
 if functions -q fzf_configure_bindings
@@ -46,3 +47,8 @@ end
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+
+# pixi
+if type -q pixi
+    pixi completion --shell fish | source
+end
