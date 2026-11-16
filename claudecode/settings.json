@@ -4,6 +4,9 @@
     "CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL": "1",
     "CLAUDE_CODE_AUTO_CONNECT_IDE": "false"
   },
+  "wheelScrollAccelerationEnabled": false,
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
   "hooks": {
     "Stop": [
       {
@@ -69,8 +72,5 @@
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
-  },
-  "wheelScrollAccelerationEnabled": false,
-  "skipDangerousModePermissionPrompt": true,
-  "theme": "dark"
+  }
 }
